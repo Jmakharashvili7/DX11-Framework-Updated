@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{8787b987-edfc-4b58-a953-13b8e7731ebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainFolder">
+      <UniqueIdentifier>{034bbebf-33a7-44ef-9a7f-634dd2a0eeb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileLoaders">
+      <UniqueIdentifier>{eef37684-204c-4913-932b-6fc2a3d48462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{49c91a7c-b567-427a-b488-59cb20183cea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{95f5712e-306c-48f2-bbd9-8da42cfb534a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DX11 Framework.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DDSTextureLoader.cpp">
+      <Filter>FileLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBJLoader.cpp">
+      <Filter>FileLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>MainFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseObjectOBJ.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseShader.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FPCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyboardClass.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyEvent.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math3D.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MouseClass.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MouseEvent.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameTime.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlanetObj.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerPawn.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DDSTextureLoader.h">
+      <Filter>FileLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OBJLoader.h">
+      <Filter>FileLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application.h">
+      <Filter>MainFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseObjectOBJ.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseShader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FPCamera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyboardClass.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyEvent.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math3D.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MouseClass.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MouseEvent.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameTime.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlanetObj.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerPawn.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX11 Framework.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Diary.txt">
+      <Filter>MainFolder</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

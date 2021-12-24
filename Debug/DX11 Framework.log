@@ -1,0 +1,5 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (DX11 Framework-A007-09.vcxproj, DX11 Framework-Predator-Helios-Odachi.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  PlayerPawn.cpp
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\src\PlayerPawn.cpp(21,36): warning C4100: 'angle': unreferenced formal parameter
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\src\PlayerPawn.cpp(25,34): warning C4100: 'angle': unreferenced formal parameter
+  DX11 Framework.vcxproj -> C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\Debug\DX11 Framework.exe
