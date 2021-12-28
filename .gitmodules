@@ -1,0 +1,4 @@
+
+[submodule "DX11-Framework/vendor/spd"]
+	path = DX11-Framework/vendor/spd
+	url = https://github.com/gabime/spdlog

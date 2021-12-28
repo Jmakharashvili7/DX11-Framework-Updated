@@ -95,6 +95,8 @@
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
     <LinkIncremental>true</LinkIncremental>
@@ -102,6 +104,8 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x64;$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -109,6 +113,8 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <LinkIncremental>false</LinkIncremental>
@@ -116,6 +122,8 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x64;$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -123,6 +131,8 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|X64'">
     <LinkIncremental>false</LinkIncremental>
@@ -130,6 +140,8 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x64;$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,7 +153,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;($SolutionDir)DX11-Framework\vendor\spdlog\include;</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -180,7 +192,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;$(SolutionDir)DX11-Framework\vendor\spdlog\include;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -220,7 +232,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -260,7 +272,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;($SolutionDir)DX11-Framework\vendor\spdlog\include;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -301,7 +313,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -341,7 +353,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DX11-Framework\vendor\spd\include;$(SolutionDir)DX11-Framework\src;($SolutionDir)DX11-Framework\vendor\spdlog\include;DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -376,46 +388,55 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11 Framework.cpp" />
-    <ClCompile Include="src\PlayerPawn.cpp" />
-    <ClCompile Include="src\GameTime.cpp" />
-    <ClCompile Include="src\MouseClass.cpp" />
-    <ClCompile Include="src\MouseEvent.cpp" />
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\BaseObject.cpp" />
-    <ClCompile Include="src\BaseObjectOBJ.cpp" />
-    <ClCompile Include="src\BaseShader.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\DDSTextureLoader.cpp" />
-    <ClCompile Include="src\FPCamera.cpp" />
-    <ClCompile Include="src\KeyboardClass.cpp" />
-    <ClCompile Include="src\KeyEvent.cpp" />
-    <ClCompile Include="src\Math3D.cpp" />
-    <ClCompile Include="src\OBJLoader.cpp" />
-    <ClCompile Include="src\PlanetObj.cpp" />
+    <ClCompile Include="DX11-Framework\src\Application.cpp" />
+    <ClCompile Include="DX11-Framework\src\BaseObject.cpp" />
+    <ClCompile Include="DX11-Framework\src\BaseObjectOBJ.cpp" />
+    <ClCompile Include="DX11-Framework\src\BaseShader.cpp" />
+    <ClCompile Include="DX11-Framework\src\Camera.cpp" />
+    <ClCompile Include="DX11-Framework\src\DDSTextureLoader.cpp" />
+    <ClCompile Include="DX11-Framework\src\FPCamera.cpp" />
+    <ClCompile Include="DX11-Framework\src\GameTime.cpp" />
+    <ClCompile Include="DX11-Framework\src\KeyboardClass.cpp" />
+    <ClCompile Include="DX11-Framework\src\KeyEvent.cpp" />
+    <ClCompile Include="DX11-Framework\src\Math3D.cpp" />
+    <ClCompile Include="DX11-Framework\src\MouseClass.cpp" />
+    <ClCompile Include="DX11-Framework\src\MouseEvent.cpp" />
+    <ClCompile Include="DX11-Framework\src\OBJLoader.cpp" />
+    <ClCompile Include="DX11-Framework\src\PlanetObj.cpp" />
+    <ClCompile Include="DX11-Framework\src\PlayerPawn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\PlayerPawn.h" />
-    <ClInclude Include="src\GameTime.h" />
-    <ClInclude Include="src\MouseClass.h" />
-    <ClInclude Include="src\MouseEvent.h" />
-    <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\BaseObject.h" />
-    <ClInclude Include="src\BaseObjectOBJ.h" />
-    <ClInclude Include="src\BaseShader.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\DDSTextureLoader.h" />
-    <ClInclude Include="src\FPCamera.h" />
-    <ClInclude Include="src\KeyboardClass.h" />
-    <ClInclude Include="src\KeyEvent.h" />
-    <ClInclude Include="src\Math3D.h" />
-    <ClInclude Include="src\OBJLoader.h" />
-    <ClInclude Include="src\PlanetObj.h" />
-    <ClInclude Include="src\resource.h" />
-    <ClInclude Include="src\structs.h" />
+    <ClInclude Include="DX11-Framework\src\Application.h" />
+    <ClInclude Include="DX11-Framework\src\BaseObject.h" />
+    <ClInclude Include="DX11-Framework\src\BaseObjectOBJ.h" />
+    <ClInclude Include="DX11-Framework\src\BaseShader.h" />
+    <ClInclude Include="DX11-Framework\src\Camera.h" />
+    <ClInclude Include="DX11-Framework\src\DDSTextureLoader.h" />
+    <ClInclude Include="DX11-Framework\src\FPCamera.h" />
+    <ClInclude Include="DX11-Framework\src\GameTime.h" />
+    <ClInclude Include="DX11-Framework\src\KeyboardClass.h" />
+    <ClInclude Include="DX11-Framework\src\KeyEvent.h" />
+    <ClInclude Include="DX11-Framework\src\Math3D.h" />
+    <ClInclude Include="DX11-Framework\src\MouseClass.h" />
+    <ClInclude Include="DX11-Framework\src\MouseEvent.h" />
+    <ClInclude Include="DX11-Framework\src\OBJLoader.h" />
+    <ClInclude Include="DX11-Framework\src\PlanetObj.h" />
+    <ClInclude Include="DX11-Framework\src\PlayerPawn.h" />
+    <ClInclude Include="DX11-Framework\src\resource.h" />
+    <ClInclude Include="DX11-Framework\src\structs.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DX11-Framework\Textures\Crate_COLOR.dds" />
+    <Image Include="DX11-Framework\Textures\Crate_NRM.dds" />
+    <Image Include="DX11-Framework\Textures\Crate_SPEC.dds" />
+    <Image Include="DX11-Framework\Textures\EarthTex.dds" />
+    <Image Include="DX11-Framework\Textures\MarsTex.dds" />
+    <Image Include="DX11-Framework\Textures\moonTex.dds" />
+    <Image Include="DX11-Framework\Textures\SunTex.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

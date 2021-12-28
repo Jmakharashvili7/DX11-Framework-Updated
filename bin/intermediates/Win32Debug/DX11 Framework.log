@@ -1,0 +1,13 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(498,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Application.cpp
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\KeyboardClass.h(27,50): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\KeyboardClass.h(27,72): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(374,74): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(374,59): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(660,49): warning C4018: '>': signed/unsigned mismatch
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(665,49): warning C4018: '>': signed/unsigned mismatch
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(651,11): warning C4189: 'dt': local variable is initialized but not referenced
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(927,51): warning C4244: 'argument': conversion from 'int' to 'const unsigned char', possible loss of data
+C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\DX11-Framework\src\Application.cpp(859,26): warning C4189: 'key': local variable is initialized but not referenced
+  DX11 Framework.vcxproj -> C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\FOGGS year 2\DX11-Framework\bin\Win32\Debug\DX11 Framework.exe

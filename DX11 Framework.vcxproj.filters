@@ -24,114 +24,120 @@
     <Filter Include="Cameras">
       <UniqueIdentifier>{95f5712e-306c-48f2-bbd9-8da42cfb534a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{4a45e7dc-ad5b-47d5-bd1c-c71a63ff90af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{d9bd104e-f3e2-4fd7-a7b7-47809cb04ff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11 Framework.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DDSTextureLoader.cpp">
-      <Filter>FileLoaders</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OBJLoader.cpp">
-      <Filter>FileLoaders</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
+    <ClCompile Include="DX11-Framework\src\Application.cpp">
       <Filter>MainFolder</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseObject.cpp">
+    <ClCompile Include="DX11-Framework\src\BaseObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseObjectOBJ.cpp">
+    <ClCompile Include="DX11-Framework\src\BaseObjectOBJ.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseShader.cpp">
+    <ClCompile Include="DX11-Framework\src\BaseShader.cpp">
       <Filter>Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
+    <ClCompile Include="DX11-Framework\src\Camera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
-    <ClCompile Include="src\FPCamera.cpp">
-      <Filter>Cameras</Filter>
-    </ClCompile>
-    <ClCompile Include="src\KeyboardClass.cpp">
+    <ClCompile Include="DX11-Framework\src\MouseClass.cpp">
       <Filter>InputManager</Filter>
     </ClCompile>
-    <ClCompile Include="src\KeyEvent.cpp">
+    <ClCompile Include="DX11-Framework\src\MouseEvent.cpp">
       <Filter>InputManager</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math3D.cpp">
+    <ClCompile Include="DX11-Framework\src\KeyEvent.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11-Framework\src\KeyboardClass.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11-Framework\src\GameTime.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11-Framework\src\OBJLoader.cpp">
+      <Filter>FileLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11-Framework\src\Math3D.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MouseClass.cpp">
-      <Filter>InputManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MouseEvent.cpp">
-      <Filter>InputManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameTime.cpp">
+    <ClCompile Include="DX11-Framework\src\PlanetObj.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlanetObj.cpp">
-      <Filter>GameObjects</Filter>
+    <ClCompile Include="DX11-Framework\src\FPCamera.cpp">
+      <Filter>Cameras</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayerPawn.cpp">
+    <ClCompile Include="DX11-Framework\src\DDSTextureLoader.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11-Framework\src\PlayerPawn.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DDSTextureLoader.h">
-      <Filter>FileLoaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OBJLoader.h">
-      <Filter>FileLoaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application.h">
+    <ClInclude Include="DX11-Framework\src\Application.h">
       <Filter>MainFolder</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseObject.h">
+    <ClInclude Include="DX11-Framework\src\BaseObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseObjectOBJ.h">
+    <ClInclude Include="DX11-Framework\src\BaseObjectOBJ.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseShader.h">
+    <ClInclude Include="DX11-Framework\src\BaseShader.h">
       <Filter>Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\Camera.h">
+    <ClInclude Include="DX11-Framework\src\Camera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
-    <ClInclude Include="src\FPCamera.h">
+    <ClInclude Include="DX11-Framework\src\MouseClass.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\MouseEvent.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\KeyEvent.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\KeyboardClass.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\GameTime.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\OBJLoader.h">
+      <Filter>FileLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Math3D.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\PlanetObj.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\FPCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
-    <ClInclude Include="src\KeyboardClass.h">
-      <Filter>InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\KeyEvent.h">
-      <Filter>InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math3D.h">
+    <ClInclude Include="DX11-Framework\src\DDSTextureLoader.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\resource.h">
+    <ClInclude Include="DX11-Framework\src\PlayerPawn.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\structs.h">
+    <ClInclude Include="DX11-Framework\src\structs.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MouseClass.h">
-      <Filter>InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MouseEvent.h">
-      <Filter>InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameTime.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PlanetObj.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PlayerPawn.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,5 +152,28 @@
     <Text Include="Diary.txt">
       <Filter>MainFolder</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DX11-Framework\Textures\Crate_NRM.dds">
+      <Filter>Shaders</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\Crate_COLOR.dds">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\Crate_SPEC.dds">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\EarthTex.dds">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\MarsTex.dds">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\moonTex.dds">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="DX11-Framework\Textures\SunTex.dds">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
