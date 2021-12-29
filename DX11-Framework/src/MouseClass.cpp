@@ -6,94 +6,101 @@
 
 using namespace DirectX;
 
+std::queue<MouseEvent> MouseClass::s_EventBuffer;
+bool MouseClass::s_IsLeftClick;
+bool MouseClass::s_IsRightClick;
+bool MouseClass::s_IsScrollClick;
+Vertex2 MouseClass::s_Position;
+Vertex2 MouseClass::s_Distance;
+float MouseClass::s_DiffX;
+float MouseClass::s_DiffY;
+
+void MouseClass::Init()
+{
+	s_IsLeftClick = false;
+	s_IsRightClick = false;
+	s_IsScrollClick = false;
+
+	s_Position = { 0, 0 };
+	s_Distance = { 0, 0 };
+
+	s_DiffX = 0;
+	s_DiffY = 0;
+}
+
 void MouseClass::OnLeftClick(int x, int y)
 {
-	m_IsLeftClick = true;
+	s_IsLeftClick = true;
 	MouseEvent me(MouseEvent::EventType::L_CLICK, x, y);
-	m_EventBuffer.push(me);
+	s_EventBuffer.push(me);
 }
 
 void MouseClass::OnLeftRelease(int x, int y)
 {
-	m_IsLeftClick = false;
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::L_RELEASE, x, y));
+	s_IsLeftClick = false;
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::L_RELEASE, x, y));
 }
 
 void MouseClass::OnRightClick(int x, int y)
 {
-	m_IsRightClick = true;
+	s_IsRightClick = true;
 	MouseEvent me(MouseEvent::EventType::R_CLICK, x, y);
-	m_EventBuffer.push(me);
+	s_EventBuffer.push(me);
 }
 
 void MouseClass::OnRightRelease(int x, int y)
 {
-	m_IsRightClick = false;
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::R_RELEASE, x, y));
+	s_IsRightClick = false;
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::R_RELEASE, x, y));
 }
 
 void MouseClass::OnScrollClick(int x, int y)
 {
-	m_IsScrollClick = true;
+	s_IsScrollClick = true;
 	MouseEvent me(MouseEvent::EventType::SCROLL_CLICK, x, y);
-	m_EventBuffer.push(me);
+	s_EventBuffer.push(me);
 }
 
 void MouseClass::OnScrollRelease(int x, int y)
 {
-	m_IsLeftClick = true;
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_RELEASE, x, y));
+	s_IsLeftClick = true;
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_RELEASE, x, y));
 }
 
 void MouseClass::OnScrollUp(int x, int y)
 {
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_UP, x, y));
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_UP, x, y));
 }
 
 void MouseClass::OnScrollDown(int x, int y)
 {
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_DOWN, x, y));
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::SCROLL_DOWN, x, y));
 }
 
 void MouseClass::OnMouseMove(int x, int y)
 {
-	dx = XMConvertToRadians(0.25f*static_cast<float>(x-m_Position.x));
-	dy = XMConvertToRadians(0.25f*static_cast<float>(y-m_Position.y));
+	s_DiffX = XMConvertToRadians(0.25f*static_cast<float>(x-s_Position.x));
+	s_DiffY = XMConvertToRadians(0.25f*static_cast<float>(y-s_Position.y));
 
-
-	std::string test = "dx is : ";
-	test += std::to_string(dx);
-	test += '\n';
-
-	if (dx != 0.0f)
-	OutputDebugStringA(test.c_str());
-
-	std::string test2 = "dy is : ";
-	test2 += std::to_string(dy);
-	test2 += '\n';
-
-	if (dy != 0.0f)
-	OutputDebugStringA(test2.c_str());
-
-	m_Position.x = x;
-	m_Position.y = y;
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::MOVE, m_Position));
+	s_Position.x = x;
+	s_Position.y = y;
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::MOVE, s_Position));
 }
 
 void MouseClass::OnMouseMoveRaw(int x, int y)
 {
-	m_EventBuffer.push(MouseEvent(MouseEvent::EventType::MOVE_RAW, x, y));
+	s_EventBuffer.push(MouseEvent(MouseEvent::EventType::MOVE_RAW, x, y));
 }
 
 void MouseClass::ResetMousePos(int x, int y)
 {
 	// Clear the queue of all inputs
 	std::queue<MouseEvent> empty;
-	std::swap(m_EventBuffer, empty);
+	std::swap(s_EventBuffer, empty);
 
 	// Set the mouse position variable to the new position
-	m_Position.x = x;
-	m_Position.y = y;
+	s_Position.x = x;
+	s_Position.y = y;
 	
 	// reset the mouse position
 	SetCursorPos(x, y);
@@ -101,14 +108,14 @@ void MouseClass::ResetMousePos(int x, int y)
 
 MouseEvent MouseClass::ReadEvent()
 {
-	if(m_EventBuffer.empty())
+	if(s_EventBuffer.empty())
 	{
 		return MouseEvent();
 	}
 	else
 	{
-		MouseEvent e  = m_EventBuffer.front(); // Get the first event in the queue
-		m_EventBuffer.pop(); // remove the first event from the buffer
+		MouseEvent e  = s_EventBuffer.front(); // Get the first event in the queue
+		s_EventBuffer.pop(); // remove the first event from the buffer
 		return e;
 	}
 }

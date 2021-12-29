@@ -5,27 +5,27 @@
 class KeyboardClass
 {
 private:
-	bool m_AutoRepeatKeys = false;
-	bool m_AutoRepeatChars = false;
-	bool m_KeyStates[256];
-	std::queue<KeyEvent> m_KeyBuffer;
-	std::queue<unsigned char> m_CharBuffer;
+	static bool s_AutoRepeatKeys;
+	static bool s_AutoRepeatChars;
+	static bool s_KeyStates[256];
+	static std::queue<KeyEvent> s_KeyBuffer;
+	static std::queue<unsigned char> s_CharBuffer;
 public:
-	KeyboardClass();
-	inline bool IsKeyPressed(const unsigned char keycode) { return m_KeyStates[keycode]; }
-	inline bool KeyBufferIsEmpty() { return m_KeyBuffer.empty(); }
-	inline bool CharBufferIsEmpty() { return m_CharBuffer.empty(); }
-	KeyEvent ReadKey();
-	unsigned char ReadChar();
-	void OnKeyPressed(const unsigned char key);
-	void OnKeyReleased(const unsigned char key);
-	void OnCharInput(const unsigned char key);
-	inline void EnableAutoRepeatKeys() { m_AutoRepeatKeys = true; }
-	inline void DisableAutoRepeatKeys() { m_AutoRepeatKeys = false; }
-	inline void EnableAutoRepeatChars() { m_AutoRepeatChars = true; }
-	inline void DisableAutoRepeatChars() { m_AutoRepeatChars = false; }
-	inline void ClearKeyBuffer() { m_KeyBuffer.empty(); m_CharBuffer.empty(); }
-	inline bool IsKeyAutoRepeat() const { return m_AutoRepeatKeys; }
-	inline bool IsCharsAutoRepeat() const { return m_AutoRepeatChars; }
+	static void Init();
+	static inline bool IsKeyPressed(const unsigned char keycode) { return s_KeyStates[keycode]; }
+	static inline bool KeyBufferIsEmpty() { return s_KeyBuffer.empty(); }
+	static inline bool CharBufferIsEmpty() { return s_CharBuffer.empty(); }
+	static KeyEvent ReadKey();
+	static unsigned char ReadChar();
+	static void OnKeyPressed(const unsigned char key);
+	static void OnKeyReleased(const unsigned char key);
+	static void OnCharInput(const unsigned char key);
+	static inline void EnableAutoRepeatKeys() { s_AutoRepeatKeys = true; }
+	static inline void DisableAutoRepeatKeys() { s_AutoRepeatKeys = false; }
+	static inline void EnableAutoRepeatChars() { s_AutoRepeatChars = true; }
+	static inline void DisableAutoRepeatChars() { s_AutoRepeatChars = false; }
+	static inline void ClearKeyBuffer() { s_KeyBuffer.empty(); s_CharBuffer.empty(); }
+	static inline bool IsKeyAutoRepeat() { return s_AutoRepeatKeys; }
+	static inline bool IsCharsAutoRepeat() { return s_AutoRepeatChars; }
 };
 

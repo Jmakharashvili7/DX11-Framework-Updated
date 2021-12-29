@@ -1,10 +1,6 @@
 #include "Application.h"
 #include "Math3D.h"
 
-
-KeyboardClass m_KeyboardClass;
-MouseClass m_MouseClass;
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     PAINTSTRUCT ps;
@@ -25,37 +21,37 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
     {
         unsigned char key = static_cast<unsigned char>(wParam);
-        if (m_KeyboardClass.IsKeyAutoRepeat())
+        if (KeyboardClass::IsKeyAutoRepeat())
         {
-            m_KeyboardClass.OnKeyPressed(key);
+            KeyboardClass::OnKeyPressed(key);
         }
         else
         {
             const bool wasPressed = lParam &(1<<30); // check the 30th bit to get if the key was pressed 
             if (!wasPressed)
-                m_KeyboardClass.OnKeyPressed(key);
+                KeyboardClass::OnKeyPressed(key);
         }
         break;
     }
     case WM_KEYUP:
     {
         unsigned char key = static_cast<unsigned char>(wParam);
-        m_KeyboardClass.OnKeyReleased(key);
+        KeyboardClass::OnKeyReleased(key);
         break;
     }
     case WM_CHAR: 
     {
         unsigned char ch = static_cast<unsigned char>(wParam);
-        if (m_KeyboardClass.IsCharsAutoRepeat())
+        if (KeyboardClass::IsCharsAutoRepeat())
         {
-            m_KeyboardClass.OnCharInput(ch);
+            KeyboardClass::OnCharInput(ch);
         }
         else
         {
             const bool wasPressed = lParam &(1<<30); // check the 30th bit to get if the key was pressed 
             if (!wasPressed)
             {
-                m_KeyboardClass.OnCharInput(ch);
+                KeyboardClass::OnCharInput(ch);
             }
         }
         break;
@@ -65,49 +61,49 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnMouseMove(x, y);
+        MouseClass::OnMouseMove(x, y);
         return 0;
     }
     case WM_LBUTTONDOWN:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnLeftClick(x, y);
+        MouseClass::OnLeftClick(x, y);
         return 0;
     }
     case WM_LBUTTONUP:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnLeftRelease(x, y);
+        MouseClass::OnLeftRelease(x, y);
         return 0;
     }
     case WM_RBUTTONDOWN:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnRightClick(x, y);
+        MouseClass::OnRightClick(x, y);
         return 0;
     }
     case WM_RBUTTONUP:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnRightRelease(x, y);
+        MouseClass::OnRightRelease(x, y);
         return 0;
     }
     case WM_MBUTTONDOWN:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnScrollClick(x, y);
+        MouseClass::OnScrollClick(x, y);
         return 0;
     }
     case WM_MBUTTONUP:
     {
         int x = LOWORD(lParam);
         int y = HIWORD(lParam);
-        m_MouseClass.OnScrollRelease(x, y);
+        MouseClass::OnScrollRelease(x, y);
         return 0;
     }
     case WM_MOUSEWHEEL:
@@ -116,11 +112,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int y = HIWORD(lParam);
         if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
         {
-            m_MouseClass.OnScrollUp(x, y);
+            MouseClass::OnScrollUp(x, y);
         }
         else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
         {
-            m_MouseClass.OnScrollDown(x, y);
+            MouseClass::OnScrollDown(x, y);
         }
         break;
     }
@@ -209,6 +205,12 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
     // setup the game timer
     m_GameTimer = new GameTimer();
     m_GameTimer->Start();
+
+    //Initialize the logger
+    Log::Init();
+    CORE_INFO("Initialized loggers!");
+
+    KeyboardClass::Init();
 
     return S_OK;
 }
@@ -659,12 +661,12 @@ void Application::Update()
     {
         if (m_MousePos->x < 50 || m_MousePos->x > m_WindowWidth)
         {
-            m_MouseClass.ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
+            MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
         }
         
         if (m_MousePos->y < 50 || m_MousePos->y > m_WindowHeight)
         {
-            m_MouseClass.ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
+            MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
         }
     }
 
@@ -853,10 +855,10 @@ void Application::HandleInput()
         }
 
         // check the key queue for any char inputs
-        if (!m_KeyboardClass.CharBufferIsEmpty() && m_Typing)
+        if (!KeyboardClass::CharBufferIsEmpty() && m_Typing)
         {
-            unsigned char ch = m_KeyboardClass.ReadChar(); 
-            unsigned int key = m_KeyboardClass.ReadKey().GetKeyCode();
+            unsigned char ch = KeyboardClass::ReadChar(); 
+            unsigned int key = KeyboardClass::ReadKey().GetKeyCode();
 
             //if (key == VK_RETURN)
             //    typing = false;
@@ -868,9 +870,9 @@ void Application::HandleInput()
         }
 
         // check the key queue for any key inputs
-        if (!m_KeyboardClass.KeyBufferIsEmpty() && !m_Typing)
+        if (!KeyboardClass::KeyBufferIsEmpty() && !m_Typing)
         {
-            unsigned int key = m_KeyboardClass.ReadKey().GetKeyCode();
+            unsigned int key = KeyboardClass::ReadKey().GetKeyCode();
             
             // Main logic for responding to key input
             if (key == VK_F1)
@@ -885,12 +887,12 @@ void Application::HandleInput()
             {
                 m_Typing = true;
             }
-            if (m_KeyboardClass.IsKeyPressed(VK_ESCAPE))
+            if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
             {
                 m_Paused = true;
                 m_GameTimer->Pause();
                 ShowCursor(true);
-                m_MouseClass.ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
+                MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
             }
             if (key == 'Y')
             {
@@ -904,32 +906,32 @@ void Application::HandleInput()
             }
         }
 
-        if (!m_MouseClass.IsEventBufferEmpty())
+        if (!MouseClass::IsEventBufferEmpty())
         {
-            MouseEvent e = m_MouseClass.ReadEvent();
+            MouseEvent e = MouseClass::ReadEvent();
 
             if (e.GetType() == MouseEvent::EventType::MOVE)
             {
-                m_FPCamera->RotateP(m_MouseClass.GetDY());
-                m_FPCamera->RotateY(m_MouseClass.GetDX());
+                m_FPCamera->RotateP(MouseClass::GetDY());
+                m_FPCamera->RotateY(MouseClass::GetDX());
                 m_FPCamera->UpdateViewMatrix();
             }
         }
     }
     else 
     {
-        if (!m_KeyboardClass.KeyBufferIsEmpty())
+        if (!KeyboardClass::KeyBufferIsEmpty())
         {
-             int key = m_KeyboardClass.ReadKey().GetKeyCode();
+             int key = KeyboardClass::ReadKey().GetKeyCode();
                 
              if (key == VK_ESCAPE)
              {
-                 if (m_KeyboardClass.IsKeyPressed(key))
+                 if (KeyboardClass::IsKeyPressed(key))
                  {
                      m_Paused = false;
                      m_GameTimer->Start();
                      ShowCursor(false);
-                     m_MouseClass.ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
+                     MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
                  }
              }
         }

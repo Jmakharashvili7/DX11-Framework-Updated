@@ -21,6 +21,7 @@
 #include "GameTime.h"
 #include "PlanetObj.h"
 #include "PlayerPawn.h"
+#include "Log.h"
 
 using namespace DirectX;
 

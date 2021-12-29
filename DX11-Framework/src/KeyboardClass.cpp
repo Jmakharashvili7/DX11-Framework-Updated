@@ -1,12 +1,20 @@
 #include "KeyboardClass.h"
 
-KeyboardClass::KeyboardClass()
+bool KeyboardClass::s_AutoRepeatKeys;
+bool KeyboardClass::s_AutoRepeatChars;
+bool KeyboardClass::s_KeyStates[256];
+std::queue<KeyEvent> KeyboardClass::s_KeyBuffer;
+std::queue<unsigned char> KeyboardClass::s_CharBuffer;
+
+void KeyboardClass::Init()
 {
+	s_AutoRepeatChars = false;
+	s_AutoRepeatKeys = false;
 }
 
 KeyEvent KeyboardClass::ReadKey()
 {
-	if (m_KeyBuffer.empty())
+	if (s_KeyBuffer.empty())
 	{
 		// return empty key event if no event is in the queue
 		return KeyEvent();
@@ -14,15 +22,15 @@ KeyEvent KeyboardClass::ReadKey()
 	else
 	{
 		// retreive the first event and remove it from the queue, after this return the event.
-		KeyEvent e = m_KeyBuffer.front(); 
-		m_KeyBuffer.pop(); 
+		KeyEvent e = s_KeyBuffer.front(); 
+		s_KeyBuffer.pop(); 
 		return e;
 	}
 }
 
 unsigned char KeyboardClass::ReadChar()
 {
-	if (m_CharBuffer.empty())
+	if (s_CharBuffer.empty())
 	{
 		// return empty key event if no event is in the queue
 		return 0u;
@@ -30,25 +38,25 @@ unsigned char KeyboardClass::ReadChar()
 	else
 	{
 		// retreive the first event and remove it from the queue, after this return the event.
-		unsigned char c = m_CharBuffer.front(); 
-		m_CharBuffer.pop(); 
+		unsigned char c = s_CharBuffer.front(); 
+		s_CharBuffer.pop(); 
 		return c;
 	}
 }
 
 void KeyboardClass::OnKeyPressed(const unsigned char key)
 {
-	m_KeyStates[key] = true;
-	m_KeyBuffer.push(KeyEvent(KeyEvent::EventType::PRESS, key));
+	s_KeyStates[key] = true;
+	s_KeyBuffer.push(KeyEvent(KeyEvent::EventType::PRESS, key));
 }
 
 void KeyboardClass::OnKeyReleased(const unsigned char key)
 {
-	m_KeyStates[key] = false;
-	m_KeyBuffer.push(KeyEvent(KeyEvent::EventType::RELEASE, key));
+	s_KeyStates[key] = false;
+	s_KeyBuffer.push(KeyEvent(KeyEvent::EventType::RELEASE, key));
 }
 
 void KeyboardClass::OnCharInput(const unsigned char key)
 {
-	m_CharBuffer.push(key);
+	s_CharBuffer.push(key);
 }

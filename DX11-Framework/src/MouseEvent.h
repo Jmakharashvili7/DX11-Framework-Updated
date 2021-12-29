@@ -4,6 +4,8 @@ struct Vertex2
 {
 	int x, y;
 
+	Vertex2() : x(0), y(0) {}
+
 	Vertex2(int x, int y)
 	{
 		this->x = x;

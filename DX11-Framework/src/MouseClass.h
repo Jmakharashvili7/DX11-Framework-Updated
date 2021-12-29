@@ -5,39 +5,41 @@
 class MouseClass
 {
 private:
-	std::queue<MouseEvent> m_EventBuffer;
-	bool m_IsLeftClick = false;
-	bool m_IsRightClick = false;
-	bool m_IsScrollClick = false;
-	Vertex2 m_Position, m_Distance;
-	float dx, dy;
+	static std::queue<MouseEvent> s_EventBuffer;
+
+	static bool s_IsLeftClick;
+	static bool s_IsRightClick;
+	static bool s_IsScrollClick;
+
+	static Vertex2 s_Position, s_Distance;
+	static float s_DiffX, s_DiffY;
 public:
-	MouseClass() : m_Position(0,0), m_Distance(0,0) {}
-	void OnLeftClick(int x, int y);
-	void OnLeftRelease(int x, int y);
-	void OnRightClick(int x, int y);
-	void OnRightRelease(int x, int y);
-	void OnScrollClick(int x, int y);
-	void OnScrollRelease(int x, int y);
-	void OnScrollUp(int x, int y);
-	void OnScrollDown(int x, int y);
-	void OnMouseMove(int x, int y);
-	void OnMouseMoveRaw(int x, int y);
+	static void Init();
+	static void OnLeftClick(int x, int y);
+	static void OnLeftRelease(int x, int y);
+	static void OnRightClick(int x, int y);
+	static void OnRightRelease(int x, int y);
+	static void OnScrollClick(int x, int y);
+	static void OnScrollRelease(int x, int y);
+	static void OnScrollUp(int x, int y);
+	static void OnScrollDown(int x, int y);
+	static void OnMouseMove(int x, int y);
+	static void OnMouseMoveRaw(int x, int y);
+	
+	static void ResetMousePos(int x, int y);
 
-	void ResetMousePos(int x, int y);
-
-	inline bool IsLeftClick() { return m_IsLeftClick; }
-	inline bool IsRightClick() { return m_IsRightClick; }
-	inline bool IsScrollClick() { return m_IsScrollClick; }
-
-	inline int GetPosX() { return m_Position.x; }
-	inline int GetPosY() { return m_Position.y; }
-	inline Vertex2 GetPos() { return m_Position; }
-	inline Vertex2 GetDis() { return m_Distance; }
-	inline float GetDX() { return dx; }
-	inline float GetDY() { return dy; }
-
-	inline bool IsEventBufferEmpty() { return m_EventBuffer.empty(); }
-	MouseEvent ReadEvent();
+	static inline bool IsLeftClick() { return s_IsLeftClick; }
+	static inline bool IsRightClick() { return s_IsRightClick; }
+	static inline bool IsScrollClick() { return s_IsScrollClick; }
+	
+	static inline int GetPosX() { return s_Position.x; }
+	static inline int GetPosY() { return s_Position.y; }
+	static inline Vertex2 GetPos() { return s_Position; }
+	static inline Vertex2 GetDis() { return s_Distance; }
+	static inline float GetDX() { return s_DiffX; }
+	static inline float GetDY() { return s_DiffY; }
+	
+	static inline bool IsEventBufferEmpty() { return s_EventBuffer.empty(); }
+	static MouseEvent ReadEvent();
 };
 
