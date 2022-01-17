@@ -206,6 +206,9 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
     m_GameTimer = new GameTimer();
     m_GameTimer->Start();
 
+    // start the game in a paused state
+    m_GameTimer->Pause();
+
     //Initialize the logger
     Log::Init();
     CORE_INFO("Initialized loggers!");
@@ -367,15 +370,18 @@ void Application::InitCameras()
     XMFLOAT3 Up = { 0.0f, 1.0f, 0.0f };
     XMFLOAT3 Right = { 1.0f, 0.0f, 0.0f };
 
-    //// setup the camera
-    //m_MainCamera = new Camera(Position, Look, Up, Right, _WindowWidth, _WindowHeight, 0.1f, 100.0f);
+    // setup the camera
+    //m_StaticCamera = new Camera(Position, Look, Up, Right, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
     //XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
-    //m_MainCamera->Update();
+    //m_StaticCamera->Update();
 
     // setup first person camera
     m_FPCamera = new FP_Camera(Position, Look, Up, Right, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
     XMStoreFloat3(&m_cb.EyePosW, m_FPCamera->GetPosition());
     m_FPCamera->Update();
+
+    // set the starting camera
+    m_MainCamera = (Camera*)m_FPCamera;
 }
 
 HRESULT Application::InitObjects()
@@ -645,6 +651,11 @@ void Application::Cleanup()
     if (m_pDepthStencilView) m_pDepthStencilView->Release();
     if (m_pDepthStencilBuffer) m_pDepthStencilBuffer->Release();
     if (m_GameTimer) delete m_GameTimer;
+
+    // Cleanup the cameras
+    if (m_MainCamera) delete m_MainCamera;
+    if (m_StaticCamera) delete m_StaticCamera;
+    if (m_FPCamera) delete m_FPCamera;
 }
 
 void Application::Update()
@@ -657,7 +668,7 @@ void Application::Update()
 
     // Reset the mouse if it goes out of bounds
     // 
-    if (!m_Paused)
+    if (!m_GameTimer->GetPauseState())
     {
         if (m_MousePos->x < 50 || m_MousePos->x > m_WindowWidth)
         {
@@ -671,7 +682,7 @@ void Application::Update()
     }
 
     // Update the camera
-    m_FPCamera->Update();
+    m_MainCamera->Update();
 
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
@@ -716,8 +727,8 @@ void Application::Draw()
     // Setup the transformation matrices
     //
     XMMATRIX world = XMLoadFloat4x4(&m_world);
-    XMMATRIX view = m_FPCamera->GetViewMatrix();
-    XMMATRIX projection = m_FPCamera->GetProjMatrix();
+    XMMATRIX view = m_MainCamera->GetViewMatrix();
+    XMMATRIX projection = m_MainCamera->GetProjMatrix();
 
     //
     //   Update variables
@@ -833,25 +844,25 @@ void Application::HandleInput()
 {
     float dt = m_GameTimer->GetDeltaTime();
 
-    if (!m_Paused)
+    if (!m_GameTimer->GetPauseState())
     {
         if (GetAsyncKeyState('W'))
         {
-            m_FPCamera->Walk(1.f * dt);
+            m_MainCamera->Walk(1.f * dt);
             m_MainPlayerPawn->Walk(dt);
         }
         if (GetAsyncKeyState('S'))
         {
-            m_FPCamera->Walk(-1.f * dt);
+            m_MainCamera->Walk(-1.f * dt);
             m_MainPlayerPawn->Walk(-dt);
         }
         if (GetAsyncKeyState('A'))
         {
-            m_FPCamera->Strafe(-1.f * dt);
+            m_MainCamera->Strafe(-1.f * dt);
         }
         if (GetAsyncKeyState('D'))
         {
-            m_FPCamera->Strafe(1.f * dt);
+            m_MainCamera->Strafe(1.f * dt);
         }
 
         // check the key queue for any char inputs
@@ -875,46 +886,43 @@ void Application::HandleInput()
             unsigned int key = KeyboardClass::ReadKey().GetKeyCode();
             
             // Main logic for responding to key input
-            if (key == VK_F1)
+            switch (key)
             {
-                m_pImmediateContext->RSSetState(m_pWireFrame);
-            }
-            if (key == VK_F2)
-            {
-                m_pImmediateContext->RSSetState(nullptr);
-            }
-            if (key == VK_RETURN) // enter
-            {
-                m_Typing = true;
-            }
-            if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
-            {
-                m_Paused = true;
-                m_GameTimer->Pause();
-                ShowCursor(true);
-                MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
-            }
-            if (key == 'Y')
-            {
-                m_FPCamera->RotateP(25.0f);
-                m_FPCamera->UpdateViewMatrix();
-            }
-            if (key == 'X')
-            {
-                m_FPCamera->RotateY(25.0f);
-                m_FPCamera->UpdateViewMatrix();
+                case VK_F1:
+                    m_pImmediateContext->RSSetState(m_pWireFrame);
+                    break;
+                case VK_F2:
+                    m_pImmediateContext->RSSetState(nullptr);
+                    break;
+                case '1':
+                    m_MainCamera = (Camera*)m_FPCamera;
+                    break;
+                case '2':
+                    m_MainCamera = m_StaticCamera;
+                    break;
+                case VK_RETURN:
+                    m_Typing = true;
+                    break;
+                case VK_ESCAPE:
+                    if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
+                    {
+                        m_GameTimer->Pause();
+                        MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-
         if (!MouseClass::IsEventBufferEmpty())
         {
             MouseEvent e = MouseClass::ReadEvent();
 
             if (e.GetType() == MouseEvent::EventType::MOVE)
             {
-                m_FPCamera->RotateP(MouseClass::GetDY());
-                m_FPCamera->RotateY(MouseClass::GetDX());
-                m_FPCamera->UpdateViewMatrix();
+                m_MainCamera->RotateP(MouseClass::GetDY());
+                m_MainCamera->RotateY(MouseClass::GetDX());
+                m_MainCamera->UpdateViewMatrix();
             }
         }
     }
@@ -928,9 +936,7 @@ void Application::HandleInput()
              {
                  if (KeyboardClass::IsKeyPressed(key))
                  {
-                     m_Paused = false;
                      m_GameTimer->Start();
-                     ShowCursor(false);
                      MouseClass::ResetMousePos(m_WindowWidth/2, m_WindowHeight/2);
                  }
              }

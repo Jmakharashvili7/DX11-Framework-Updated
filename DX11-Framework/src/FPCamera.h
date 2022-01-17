@@ -8,7 +8,7 @@ public:
 	~FP_Camera() {}
 
 	// Movement functions
-	void Strafe(float force);
-	void Walk(float force);
+	void Strafe(float force) override;
+	void Walk(float force) override;
 };
 

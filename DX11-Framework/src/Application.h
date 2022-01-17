@@ -56,7 +56,7 @@ private:
 	// Consant buffer		  
 	ConstantBuffer			  m_cb;
 	// Cameras
-	Camera                    *m_MainCamera;
+	Camera                    *m_MainCamera, *m_StaticCamera;
 	FP_Camera                 *m_FPCamera;
 	// Game objects			  
 	BaseObject                *m_LegacySun, *m_LegacyMars, *m_LegacyEarth, *m_LegacyMoonEarth, *m_LegacyMoonMars, *m_LegacyPyramid;
@@ -66,7 +66,6 @@ private:
 	PlayerPawn                *m_MainPlayerPawn;
 	// variables for game state
 	bool					   m_Typing = false;
-	bool					   m_Paused = false;
 	// variable for game time
 	GameTimer*				   m_GameTimer;
 private:

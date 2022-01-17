@@ -28,8 +28,6 @@ public:
 		FLOAT nearDepth, FLOAT farDepth);
 	~Camera();
 	
-	// Update function to make the current view and projection matrices
-	void Update();
 	
 	// Retrieve and Set functions for the Camera Eye
 	inline void SetPosition(const XMFLOAT3& position) { m_Position = position; }
@@ -51,9 +49,15 @@ public:
 	// Update View Matrix
 	void UpdateViewMatrix();
 
+	// Update function to make the current view and projection matrices
+	virtual void Update();
+
 	// Rotation functions
-	void RotateP(float angle);
-	void RotateY(float angle);
+	virtual void RotateP(float angle);
+	virtual void RotateY(float angle);
+
+	virtual void Walk(float force) {}
+	virtual void Strafe(float force) {}
 
 	// A function to reshape the camera volume if the window is resized.
 	void Reshape(FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);

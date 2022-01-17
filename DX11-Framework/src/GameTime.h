@@ -13,6 +13,8 @@ public:
 	void Start();
 	void Pause();
 	void Tick();
+
+	inline bool GetPauseState() { return m_Paused; }
 private:
 	double m_SecondsPerCount;
 	double m_DeltaTime;

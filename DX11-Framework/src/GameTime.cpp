@@ -60,6 +60,7 @@ void GameTimer::Start()
 		// Unpause the game
 		m_StopTime = 0;
 		m_Paused = false;
+		ShowCursor(false);
 	}
 }
 
@@ -75,6 +76,7 @@ void GameTimer::Pause()
 		// Pause the timer and count the time paused
 		m_StopTime = currTime;
 		m_Paused = true;
+		ShowCursor(true);
 	}
 }
 
