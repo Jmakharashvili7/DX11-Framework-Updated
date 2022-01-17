@@ -71,9 +71,6 @@
     <ClCompile Include="DX11-Framework\src\Math3D.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX11-Framework\src\PlanetObj.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="DX11-Framework\src\FPCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Math3D.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11-Framework\src\PlanetObj.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\FPCamera.h">
       <Filter>Cameras</Filter>

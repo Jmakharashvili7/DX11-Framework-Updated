@@ -6,6 +6,7 @@
 #include <directxcolors.h>
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "DDSTextureLoader.h"
 #include "resource.h"	
@@ -19,7 +20,6 @@
 #include "MouseClass.h"
 #include "FPCamera.h"
 #include "GameTime.h"
-#include "PlanetObj.h"
 #include "PlayerPawn.h"
 #include "Log.h"
 
@@ -62,7 +62,6 @@ private:
 	BaseObject                *m_LegacySun, *m_LegacyMars, *m_LegacyEarth, *m_LegacyMoonEarth, *m_LegacyMoonMars, *m_LegacyPyramid;
 	// OBJ Game Objects
 	BaseObjectOBJ             *m_Sun, *m_Mars, *m_Moon, *m_Earth;
-	PlanetObj				  *m_PlayerPawn;
 	PlayerPawn                *m_MainPlayerPawn;
 	// variables for game state
 	bool					   m_Typing = false;

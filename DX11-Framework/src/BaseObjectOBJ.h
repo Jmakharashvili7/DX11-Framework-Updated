@@ -17,7 +17,8 @@ public:
 	~BaseObjectOBJ();
 
 	// Main function for rendering the object
-	void Render(XMMATRIX& worldMatrix, ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* deviceContext);
+	virtual void Render(XMMATRIX& worldMatrix, ConstantBuffer& buffer, 
+		ID3D11Buffer* constBuffer, ID3D11DeviceContext* deviceContext);
 
 	// Load and store functions for world matrix
 	inline void SetWorldMatrix(XMMATRIX matrix) { XMStoreFloat4x4(&m_World, matrix); }

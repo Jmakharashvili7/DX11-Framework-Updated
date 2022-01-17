@@ -1,9 +1,15 @@
 #include "Camera.h"
 
-Camera::Camera(XMFLOAT3 position, XMFLOAT3 at, XMFLOAT3 up, XMFLOAT3 right, FLOAT windowWidth, FLOAT windowHeight, 
+Camera::Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, 
 	FLOAT nearDepth, FLOAT farDepth) 
-	: m_Position(position), m_LookVec(at), m_UpVec(up), m_RightVec(right), m_WindowHeight(windowHeight)
-	, m_WindowWidth(windowWidth), m_NearDepth(nearDepth), m_FarDepth(farDepth)
+	: m_Position(position), 
+	  m_LookVec(0.0f, 0.0f, 1.0f), 
+	  m_UpVec(0.0f, 1.0f, 0.0f), 
+	  m_RightVec(1.0f, 0.0f, 0.0f), 
+	  m_WindowHeight(windowHeight),
+	  m_WindowWidth(windowWidth), 
+	  m_NearDepth(nearDepth), 
+	  m_FarDepth(farDepth)
 {
 }
 
@@ -93,25 +99,6 @@ inline XMMATRIX Camera::GetViewProjMatrix() const
 	combinedMatrix = viewMatrix * projMatrix;
 
 	return combinedMatrix;
-}
-
-void Camera::RotateP(float angle)
-{
-	// Roate up and look vector about the right vector
-	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_RightVec), angle);
-
-	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));
-	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
-}
-
-void Camera::RotateY(float angle)
-{
-	// Rotate the basis vectors about the world y-axis
-	XMMATRIX R = XMMatrixRotationY(angle);
-
-	XMStoreFloat3(&m_RightVec, XMVector3TransformNormal(XMLoadFloat3(&m_RightVec), R));
-	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));
-	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
 }
  
 void Camera::Reshape(FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth)

@@ -1,31 +1,24 @@
 #pragma once
 #include <d3d11_1.h>
 #include <directxmath.h>
+#include <memory>
 #include "structs.h"
 
 class Camera
 {
 protected:
 	// Attributes to store the camera position
-	XMFLOAT3 m_Position;
-	XMFLOAT3 m_LookVec;
-	XMFLOAT3 m_UpVec;
-	XMFLOAT3 m_RightVec;
+	XMFLOAT3 m_Position, m_LookVec, m_UpVec, m_RightVec;
 	
 	// Attributes to hold the window information and the near and far depth values 
-	FLOAT m_WindowWidth;
-	FLOAT m_WindowHeight;
-	FLOAT m_NearDepth;
-	FLOAT m_FarDepth;
+	FLOAT m_WindowWidth, m_WindowHeight, m_NearDepth, m_FarDepth;
 	
 	// Attributes to hold the view and projection matrices which will be passed to the shader
-	XMFLOAT4X4 m_View;
-	XMFLOAT4X4 m_Proj;
+	XMFLOAT4X4 m_View, m_Proj;
 	
 public:
 	//Constructor and destructor for the camera
-	Camera(XMFLOAT3 position, XMFLOAT3 at, XMFLOAT3 up, XMFLOAT3 right, FLOAT windowWidth, FLOAT windowHeight, 
-		FLOAT nearDepth, FLOAT farDepth);
+	Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);
 	~Camera();
 	
 	
@@ -53,8 +46,8 @@ public:
 	virtual void Update();
 
 	// Rotation functions
-	virtual void RotateP(float angle);
-	virtual void RotateY(float angle);
+	virtual void RotateP(float angle) {}
+	virtual void RotateY(float angle) {}
 
 	virtual void Walk(float force) {}
 	virtual void Strafe(float force) {}

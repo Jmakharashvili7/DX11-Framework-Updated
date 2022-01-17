@@ -1,8 +1,7 @@
 #include "FPCamera.h"
 
-FP_Camera::FP_Camera(XMFLOAT3 position, XMFLOAT3 at, XMFLOAT3 up, XMFLOAT3 right, 
-	FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth) :
-	Camera( position, at, up, right, windowWidth, windowHeight, nearDepth, farDepth)
+FP_Camera::FP_Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth) :
+	Camera( position, windowWidth, windowHeight, nearDepth, farDepth)
 {
 }
 
@@ -25,3 +24,22 @@ void FP_Camera::Walk(float force)
 	XMStoreFloat3(&m_Position, XMVectorMultiplyAdd(s, l, p));
 }
 
+
+void FP_Camera::RotateP(float angle)
+{
+	// Roate up and look vector about the right vector
+	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_RightVec), angle);
+
+	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));
+	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
+}
+
+void FP_Camera::RotateY(float angle)
+{
+	// Rotate the basis vectors about the world y-axis
+	XMMATRIX R = XMMatrixRotationY(angle);
+
+	XMStoreFloat3(&m_RightVec, XMVector3TransformNormal(XMLoadFloat3(&m_RightVec), R));
+	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));
+	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
+}

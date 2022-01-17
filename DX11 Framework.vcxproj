@@ -402,7 +402,6 @@
     <ClCompile Include="DX11-Framework\src\MouseClass.cpp" />
     <ClCompile Include="DX11-Framework\src\MouseEvent.cpp" />
     <ClCompile Include="DX11-Framework\src\OBJLoader.cpp" />
-    <ClCompile Include="DX11-Framework\src\PlanetObj.cpp" />
     <ClCompile Include="DX11-Framework\src\PlayerPawn.cpp" />
     <ClCompile Include="DX11-Framework\src\Log.cpp" />
   </ItemGroup>
@@ -424,7 +423,6 @@
     <ClInclude Include="DX11-Framework\src\MouseClass.h" />
     <ClInclude Include="DX11-Framework\src\MouseEvent.h" />
     <ClInclude Include="DX11-Framework\src\OBJLoader.h" />
-    <ClInclude Include="DX11-Framework\src\PlanetObj.h" />
     <ClInclude Include="DX11-Framework\src\PlayerPawn.h" />
     <ClInclude Include="DX11-Framework\src\resource.h" />
     <ClInclude Include="DX11-Framework\src\structs.h" />

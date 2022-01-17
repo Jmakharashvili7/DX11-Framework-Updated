@@ -146,8 +146,6 @@ Application::Application()
     m_LegacyMoonMars = nullptr;
     m_LegacyMoonEarth = nullptr;
     m_LegacyPyramid = nullptr;
-    // Player Pawn
-    m_PlayerPawn = nullptr;
     // constant buffers
     m_pConstantBuffer = nullptr;
     // textures
@@ -366,22 +364,18 @@ void Application::InitCameras()
 {
     // Initialize the camera variables
     XMFLOAT3 Position = { 0.0f, 0.0f,-3.0f };
-    XMFLOAT3 Look = { 0.0f, 0.0f, 1.0f };
-    XMFLOAT3 Up = { 0.0f, 1.0f, 0.0f };
-    XMFLOAT3 Right = { 1.0f, 0.0f, 0.0f };
 
     // setup the camera
-    //m_StaticCamera = new Camera(Position, Look, Up, Right, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
-    //XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
-    //m_StaticCamera->Update();
+    m_StaticCamera = new Camera(Position, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
+    m_StaticCamera->Update();
 
     // setup first person camera
-    m_FPCamera = new FP_Camera(Position, Look, Up, Right, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
-    XMStoreFloat3(&m_cb.EyePosW, m_FPCamera->GetPosition());
+    m_FPCamera = new FP_Camera(Position, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
     m_FPCamera->Update();
 
     // set the starting camera
     m_MainCamera = (Camera*)m_FPCamera;
+    XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
 }
 
 HRESULT Application::InitObjects()
@@ -405,7 +399,8 @@ HRESULT Application::InitObjects()
 
     m_Earth = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
 
-    m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
+    m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
+        XMFLOAT3(0.0f, 0.0f, 0.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
 
     return hr;
 }
@@ -900,6 +895,15 @@ void Application::HandleInput()
                 case '2':
                     m_MainCamera = m_StaticCamera;
                     break;
+                case '3':
+                    m_MainCamera = m_MainPlayerPawn->GetCamera();
+                    break;
+                case 'P':
+                    //m_MainPlayerPawn->SwitchTPCamera();
+                    break;
+                case 'F':
+                    //m_MainPlayerPawn->SwitchFPCamera();
+                    break;
                 case VK_RETURN:
                     m_Typing = true;
                     break;
@@ -922,6 +926,10 @@ void Application::HandleInput()
             {
                 m_MainCamera->RotateP(MouseClass::GetDY());
                 m_MainCamera->RotateY(MouseClass::GetDX());
+
+                m_MainPlayerPawn->RotatePitch(MouseClass::GetDY());
+                m_MainPlayerPawn->RotateYaw(MouseClass::GetDX());
+
                 m_MainCamera->UpdateViewMatrix();
             }
         }
