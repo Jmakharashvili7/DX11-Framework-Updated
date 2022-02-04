@@ -266,11 +266,6 @@ HRESULT Application::InitObjects()
 {
     HRESULT hr = S_OK; // stands for hex result
 
-    m_Sun = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
-
-    if (FAILED(hr))
-        return hr;
-
     m_Moon = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
 
     if (FAILED(hr))
@@ -283,6 +278,23 @@ HRESULT Application::InitObjects()
 
     m_Earth = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
 
+    MeshData meshData = OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice);
+
+    Geometry geometry;
+    geometry.indexCount = meshData.IndexCount;
+    geometry.indexBuffer = meshData.IndexBuffer;
+    geometry.vertexBuffer = meshData.VertexBuffer;
+    geometry.vertexBufferOffset = meshData.VBOffset;
+    geometry.vertexBufferStride = meshData.VBStride;
+
+    Material material;
+    material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    material.specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
+    material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+    material.specularPower = 10.0f;
+
+    m_NewSun = new GameObject("TheSun", geometry, material);
+
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
         XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
 
@@ -291,15 +303,19 @@ HRESULT Application::InitObjects()
 
 void Application::InitLights()
 {
-    // Light direction from surface (XYZ)
+    // Light direction from surface 
     m_LightDirection = XMFLOAT3(1, 1.0f, -2.0f);
     m_cb.LightVecW = m_LightDirection;
 
-    // Diffuse material properties (RGBA)
+    // Ambient light info
+    m_cb.AmbientMtrl = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    m_cb.AmbientLight = XMFLOAT4(0.05f, 0.05f, 0.05f, 1.0f);
+
+    // Diffuse material properties 
     m_DiffuseMaterial = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
     m_cb.DiffuseMtrl = m_DiffuseMaterial;
 
-    // Diffuse light color (RGBA)
+    // Diffuse light color
     m_DiffuseLight = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
     m_cb.DiffuseLight = m_DiffuseLight;
 
@@ -307,6 +323,7 @@ void Application::InitLights()
     m_cb.SpecularMaterial = { 0.3f, 0.3f, 0.3f, 1.0f };
     m_cb.SpecularLight = { 1.0f, 1.0f, 1.0f, 1.0f };
     m_cb.SpecularPower = 10.0f;
+
 }
 
 HRESULT Application::InitTextures()
@@ -515,7 +532,6 @@ void Application::Cleanup()
     if (m_pConstantBuffer) m_pConstantBuffer->Release();
 
     // Clean up the planets
-    //if (m_Sun) delete m_Sun;
     //if (m_Mars) delete m_Mars;
     //if (m_Earth) delete m_Earth;
     //if (m_MoonEarth) delete m_MoonEarth;
@@ -570,7 +586,7 @@ void Application::Update()
     //
     // Animate Sun
     //
-    XMStoreFloat4x4(&m_Sun->m_World, XMMatrixTranslation(0.0f, -0.25f, 0.0f) * XMMatrixRotationY(t));
+    //XMStoreFloat4x4(&m_Sun->m_World, XMMatrixTranslation(0.0f, -0.25f, 0.0f) * XMMatrixRotationY(t));
 
     //
     // Animate Mars
@@ -589,6 +605,8 @@ void Application::Update()
 
     // Moon for Earth
     m_MainPlayerPawn->Update();
+
+    m_NewSun->Update(dt);
 }
 
 void Application::Draw()
@@ -633,8 +651,6 @@ void Application::Draw()
     //
     // Render Object
     //
-    m_Sun->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
     m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureEarthRV);
 
     m_Earth->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
@@ -647,9 +663,11 @@ void Application::Draw()
 
     m_Moon->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
+    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureSunRV);
+    m_NewSun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
+
     //m_MainPlayerPawn->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
-    //m_Sun->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
     //m_MoonEarth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
     //m_Earth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
     //m_Mars->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);

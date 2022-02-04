@@ -29,11 +29,13 @@ struct ConstantBuffer
 	XMMATRIX mWorld;
 	XMMATRIX mView;
 	XMMATRIX mProjection;
+	XMFLOAT4 AmbientMtrl;
 	XMFLOAT4 DiffuseMtrl;
-	XMFLOAT4 DiffuseLight;
-	XMFLOAT3 LightVecW;
-	float	 SpecularPower;
 	XMFLOAT4 SpecularMaterial;
+	XMFLOAT4 AmbientLight;
+	XMFLOAT4 DiffuseLight;
 	XMFLOAT4 SpecularLight;
+	float	 SpecularPower;
+	XMFLOAT3 LightVecW;
 	XMFLOAT3 EyePosW; // camera position in world space
 };

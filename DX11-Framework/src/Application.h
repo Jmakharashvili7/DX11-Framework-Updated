@@ -22,6 +22,7 @@
 #include "GameTime.h"
 #include "PlayerPawn.h"
 #include "Log.h"
+#include "GameObject.h"
 
 using namespace DirectX;
 
@@ -61,7 +62,8 @@ private:
 	// Game objects			  
 	BaseObject                *m_LegacySun, *m_LegacyMars, *m_LegacyEarth, *m_LegacyMoonEarth, *m_LegacyMoonMars, *m_LegacyPyramid;
 	// OBJ Game Objects
-	BaseObjectOBJ             *m_Sun, *m_Mars, *m_Moon, *m_Earth;
+	BaseObjectOBJ             *m_Mars, *m_Moon, *m_Earth;
+	GameObject				  *m_NewSun;
 	PlayerPawn                *m_MainPlayerPawn;
 	// variables for game state
 	bool					   m_Typing = false;

@@ -18,6 +18,7 @@ cbuffer ConstantBuffer : register(b0)
     float SpecularPower;
     float4 SpecularMtrl;
     float4 SpecularLight;
+    float4 AmbientLight;
     float3 EyePosW; // camera position in world space
 }
 
@@ -87,7 +88,7 @@ float4 PS(PS_INPUT input) : SV_Target
 
 
     // Compute diffuse and ambient lighting
-    float ambient = 0.1;
+    float3 ambient = AmbientLight.rbg;
     float3 diffuse = diffuseAmount * (DiffuseMtrl * DiffuseLight).rgb;
 
     // Calculate specular lighting

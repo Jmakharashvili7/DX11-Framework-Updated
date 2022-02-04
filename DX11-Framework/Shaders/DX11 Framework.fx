@@ -11,17 +11,30 @@ SamplerState samLinear : register( s0 );
 //--------------------------------------------------------------------------------------
 // Constant Buffer Variables
 //--------------------------------------------------------------------------------------
+struct SurfaceInfo
+{
+    float4 AmbientMtrl;
+    float4 DiffsueMtrl;
+    float4 SpecularMtrl;
+};
+
+struct Light
+{
+    float4 AmbientLight;
+    float4 DiffuseLight;
+    float4 SpecularLight;
+
+    float SpecularPower;
+    float3 LightVecW;
+};
+
 cbuffer ConstantBuffer : register( b0 )
 {
 	matrix World;
 	matrix View;
 	matrix Projection;
-    float4 DiffuseMtrl;
-    float4 DiffuseLight;
-    float3 LightVecW;
-    float  SpecularPower;
-    float4 SpecularMtrl;
-    float4 SpecularLight;
+    SurfaceInfo surfaceInfo;
+    Light light;
     float3 EyePosW; // camera position in world space
 }
 
@@ -81,27 +94,27 @@ float4 PS( PS_INPUT input ) : SV_Target
     float3 toEye = normalize(EyePosW - input.PosW);
     
     // Compute Colour
-    float diffuseAmount = max(dot(LightVecW, input.Norm), 0.0f);
+    float diffuseAmount = max(dot(light.LightVecW, input.Norm), 0.0f);
 
     // Compute the reflection vector
-    float3 r = reflect(-LightVecW, input.Norm);
+    float3 r = reflect(-light.LightVecW, input.Norm);
     
     float4 textureColour = txDiffuse.Sample(samLinear, input.Tex);
 
     // Determine how much specular light makes it into the eye
-    float specularAmount = pow(max(dot(r, toEye), 0.0f), SpecularPower);
+    float specularAmount = pow(max(dot(r, toEye), 0.0f), light.SpecularPower);
 
     // Compute diffuse and ambient lighting
-    float ambient = 0.075f;
-    float3 diffuse = diffuseAmount * (DiffuseMtrl * DiffuseLight).rgb;
+    float ambient = light.AmbientLight * surfaceInfo.AmbientMtrl;
+    float3 diffuse = diffuseAmount * (surfaceInfo.DiffsueMtrl * light.DiffuseLight).rgb;
 
     // Calculate specular lighting
-    float3 specular = specularAmount * (SpecularMtrl * SpecularLight).rgb;
+    float3 specular = specularAmount * (surfaceInfo.SpecularMtrl * light.SpecularLight).rgb;
 
     // Sum all the terms together
     float4 Color;
     Color.rgb = ambient + specular + diffuse;
-    Color.a = DiffuseMtrl.a;
+    Color.a = surfaceInfo.DiffsueMtrl.a;
 
     // return the color
     return textureColour * Color;

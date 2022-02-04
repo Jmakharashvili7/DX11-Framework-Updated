@@ -409,6 +409,7 @@
     <ClCompile Include="DX11-Framework\src\PlayerPawn.cpp" />
     <ClCompile Include="DX11-Framework\src\Log.cpp" />
     <ClCompile Include="DX11-Framework\src\TPCamera.cpp" />
+    <ClCompile Include="DX11-Framework\src\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -433,6 +434,7 @@
     <ClInclude Include="DX11-Framework\src\structs.h" />
     <ClInclude Include="DX11-Framework\src\Log.h" />
     <ClInclude Include="DX11-Framework\src\TPCamera.h" />
+    <ClInclude Include="DX11-Framework\src\GameObject.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>
