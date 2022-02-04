@@ -56,7 +56,7 @@ private:
 	// Consant buffer		  
 	ConstantBuffer			  m_cb;
 	// Cameras
-	Camera                    *m_MainCamera, *m_StaticCamera;
+	Camera                    *m_MainCamera, *m_StaticCamera, *m_TopDownCamera;
 	FP_Camera                 *m_FPCamera;
 	// Game objects			  
 	BaseObject                *m_LegacySun, *m_LegacyMars, *m_LegacyEarth, *m_LegacyMoonEarth, *m_LegacyMoonMars, *m_LegacyPyramid;

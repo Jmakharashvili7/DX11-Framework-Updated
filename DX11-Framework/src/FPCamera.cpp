@@ -27,7 +27,7 @@ void FP_Camera::Walk(float force)
 
 void FP_Camera::RotateP(float angle)
 {
-	// Roate up and look vector about the right vector
+	// Rotate up and look vector about the right vector
 	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_RightVec), angle);
 
 	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));

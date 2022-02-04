@@ -236,130 +236,6 @@ HRESULT Application::InitShadersAndInputLayout()
     return hr;
 }
 
-//HRESULT Application::LegacyInitObjects()
-//{
-//    HRESULT hr = S_OK; // stands for hex result
-//
-//    //
-//    // Create vertex buffer for sun
-//    //
-//
-//    SimpleVertex vertices[] =
-//    {
-//        { XMFLOAT3(-0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 0
-//        { XMFLOAT3(-0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 1
-//        { XMFLOAT3(0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 2
-//        { XMFLOAT3(0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 3
-//        { XMFLOAT3(-0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 4
-//        { XMFLOAT3(-0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 5
-//        { XMFLOAT3(0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 6
-//        { XMFLOAT3(0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 7
-//    };
-//    WORD indicesCube[] =
-//    {
-//        0, 1, 2, 0, 2, 3, // Top
-//        0, 4, 5, 0, 5, 1, // Bottom
-//        1, 5, 6, 1, 6, 2, // Left
-//        2, 6, 7, 2, 7, 3, // Right
-//        3, 7, 4, 3, 4, 0, // Front
-//        4, 7, 6, 4, 6, 5  // Back 
-//    };
-//
-//    m_LegacySun = new BaseObject(m_pd3dDevice, vertices, indicesCube, hr, 36, 8);
-//
-//    if (FAILED(hr))
-//        return hr;
-//
-//    //
-//    // Vertex buffer for moons
-//    //
-//    SimpleVertex verticesMoon[] =
-//    {
-//        { XMFLOAT3(-0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 0
-//        { XMFLOAT3(-0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 1
-//        { XMFLOAT3( 0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 2
-//        { XMFLOAT3( 0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 3
-//        { XMFLOAT3(-0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 4
-//        { XMFLOAT3(-0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 5
-//        { XMFLOAT3( 0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 6
-//        { XMFLOAT3( 0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 7
-//    };
-//
-//    m_LegacyMoonEarth = new BaseObject(m_pd3dDevice, verticesMoon, indicesCube, hr, 36, 8);
-//    if (FAILED(hr))
-//        return hr;
-//
-//    m_LegacyMoonMars = new BaseObject(m_pd3dDevice, verticesMoon, indicesCube, hr, 36, 8);
-//    if (FAILED(hr))
-//        return hr;
-//
-//    //
-//    // Vertex buffer for Mars
-//    //
-//
-//    SimpleVertex verticesMars[] =
-//    {
-//        { XMFLOAT3(-0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 0
-//        { XMFLOAT3(-0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 1
-//        { XMFLOAT3(0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 2
-//        { XMFLOAT3(0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 3
-//        { XMFLOAT3(-0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 4
-//        { XMFLOAT3(-0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 5
-//        { XMFLOAT3(0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 6
-//        { XMFLOAT3(0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 7
-//    };
-//
-//    m_LegacyMars = new BaseObject(m_pd3dDevice, verticesMars, indicesCube, hr, 36, 8);
-//    if (FAILED(hr))
-//        return hr;
-//
-//    //
-//    // Vertex buffer for Earth
-//    //
-//    SimpleVertex verticesEarth[] =
-//    {
-//        { XMFLOAT3(-0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 0
-//        { XMFLOAT3(-0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 1
-//        { XMFLOAT3(0.25f, 0.5f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 2
-//        { XMFLOAT3(0.25f, 0.5f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(0, 0) }, // 3
-//        { XMFLOAT3(-0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 4
-//        { XMFLOAT3(-0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 5
-//        { XMFLOAT3(0.25f, 0.0f,  0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 6
-//        { XMFLOAT3(0.25f, 0.0f, -0.25f), XMFLOAT3(0,0,0), XMFLOAT2(1, 1) }, // 7
-//    };
-//
-//    m_LegacyEarth = new BaseObject(m_pd3dDevice, verticesEarth, indicesCube, hr, 36, 8);
-//    if (FAILED(hr))
-//        return hr;
-//    //
-//    // Vertex buffer for the pyramid
-//    //
-//    SimpleVertex verticesPyramid[] =
-//    {
-//        {XMFLOAT3(0.5f, 0.0f, -0.5f), XMFLOAT3(0, 0, 0), XMFLOAT2(1, 1) }, // 0
-//        {XMFLOAT3(0.5f, 0.0f,  0.5f), XMFLOAT3(0, 0, 0), XMFLOAT2(1, 0) }, // 1
-//        {XMFLOAT3(-0.5f, 0.0f, -0.5f), XMFLOAT3(0, 0, 0), XMFLOAT2(0, 1) }, // 2
-//        {XMFLOAT3(-0.5f, 0.0f,  0.5f), XMFLOAT3(0, 0, 0), XMFLOAT2(1, 1) }, // 3
-//        {XMFLOAT3(0.0f, 0.5f,  0.0f), XMFLOAT3(0, 0, 0), XMFLOAT2(0.5, 0.5) }, // 4 This is the tip
-//    };
-//
-//    WORD indicesPyramid[] =
-//    {
-//        3, 0, 1,
-//        3, 2, 0,
-//        0, 4, 1,
-//        0, 2, 4,
-//        4, 3, 1,
-//        3, 4, 2
-//    };
-//
-//    m_LegacyPyramid = new BaseObject(m_pd3dDevice, verticesPyramid, indicesPyramid, hr, 18, 5);
-//    if (FAILED(hr))
-//        return hr;
-//
-//    return S_OK;
-//}
-
 void Application::InitCameras()
 {
     // Initialize the camera variables
@@ -372,6 +248,14 @@ void Application::InitCameras()
     // setup first person camera
     m_FPCamera = new FP_Camera(Position, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
     m_FPCamera->Update();
+
+    // setup topdown camera
+    XMFLOAT3 pos = {0.0f, 4.0f, 0.0f};
+    XMFLOAT3 look = {0.0f, -1.0f, 0.0f};
+    XMFLOAT3 right = {1.0f, 0.0f, 0.0f};
+    XMFLOAT3 up = {0.0f, 0.0f, 1.0f};
+
+    m_TopDownCamera = new Camera(pos, look, right, up, m_WindowWidth, m_WindowHeight, 0.1f, 100.0f);
 
     // set the starting camera
     m_MainCamera = (Camera*)m_FPCamera;
@@ -400,7 +284,7 @@ HRESULT Application::InitObjects()
     m_Earth = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
 
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
-        XMFLOAT3(0.0f, 0.0f, 0.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
+        XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
 
     return hr;
 }
@@ -412,7 +296,7 @@ void Application::InitLights()
     m_cb.LightVecW = m_LightDirection;
 
     // Diffuse material properties (RGBA)
-    m_DiffuseMaterial = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+    m_DiffuseMaterial = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
     m_cb.DiffuseMtrl = m_DiffuseMaterial;
 
     // Diffuse light color (RGBA)
@@ -421,8 +305,8 @@ void Application::InitLights()
 
     // Specular light info
     m_cb.SpecularMaterial = { 0.3f, 0.3f, 0.3f, 1.0f };
-    m_cb.SpecularLight = { 0.3f, 0.3f, 0.3f, 1.0f };
-    m_cb.SpecularPower = 3.0f;
+    m_cb.SpecularLight = { 1.0f, 1.0f, 1.0f, 1.0f };
+    m_cb.SpecularPower = 10.0f;
 }
 
 HRESULT Application::InitTextures()
@@ -645,12 +529,12 @@ void Application::Cleanup()
     if (m_pWireFrame) m_pWireFrame->Release();
     if (m_pDepthStencilView) m_pDepthStencilView->Release();
     if (m_pDepthStencilBuffer) m_pDepthStencilBuffer->Release();
-    if (m_GameTimer) delete m_GameTimer;
-
-    // Cleanup the cameras
-    if (m_MainCamera) delete m_MainCamera;
-    if (m_StaticCamera) delete m_StaticCamera;
-    if (m_FPCamera) delete m_FPCamera;
+    //if (m_GameTimer) delete m_GameTimer;
+    //
+    //// Cleanup the cameras
+    //if (m_MainCamera) delete m_MainCamera;
+    //if (m_StaticCamera) delete m_StaticCamera;
+    //if (m_FPCamera) delete m_FPCamera;
 }
 
 void Application::Update()
@@ -678,6 +562,8 @@ void Application::Update()
 
     // Update the camera
     m_MainCamera->Update();
+
+     XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
 
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
@@ -761,7 +647,7 @@ void Application::Draw()
 
     m_Moon->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
-    m_MainPlayerPawn->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
+    //m_MainPlayerPawn->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
     //m_Sun->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
     //m_MoonEarth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
@@ -775,65 +661,6 @@ void Application::Draw()
     //
     m_pSwapChain->Present(0, 0);
 }
-
-//void Application::LegacyDraw()
-//{
-//    //
-//    // Clear the back buffer
-//    //
-//    float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // red,green,blue,alpha   
-//    m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, ClearColor);
-//
-//    //
-//    // Clear the depth/stencil view
-//    //
-//    m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-//
-//    //
-//    // Setup the transformation matrices
-//    //
-//    XMMATRIX world = XMLoadFloat4x4(&m_world);
-//    XMMATRIX view = m_MainCamera->GetViewMatrix();
-//    XMMATRIX projection = m_MainCamera->GetProjMatrix();
-//        
-//    //
-//    //   Update variables
-//    //
-//    m_cb.mWorld = XMMatrixTranspose(world);
-//    m_cb.mView = XMMatrixTranspose(view);
-//    m_cb.mProjection = XMMatrixTranspose(projection);
-//    m_pImmediateContext->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &m_cb, 0, 0);
-//
-//    //
-//    // Setup constant buffer and shaders
-//    //
-//    m_pImmediateContext->VSSetShader(m_pTemplateShader->GetVertexShader(), nullptr, 0);
-//    m_pImmediateContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
-//    m_pImmediateContext->PSSetConstantBuffers(0, 1, &m_pConstantBuffer);
-//    m_pImmediateContext->PSSetShader(m_pTemplateShader->GetPixelShader(), nullptr, 0);
-//    m_pImmediateContext->PSSetSamplers(0, 1, &m_pSamplerLinear);
-//    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureRV);
-//    m_pImmediateContext->CSSetShaderResources(1, 1, &m_pTextureNrms);
-//
-//    //
-//    //   Update variables
-//    //
-//    m_cb.mWorld = XMMatrixTranspose(world);
-//    m_cb.mView = XMMatrixTranspose(view);
-//    m_cb.mProjection = XMMatrixTranspose(projection);
-//    m_pImmediateContext->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &m_cb, 0, 0);
-//    m_LegacySun->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//    m_LegacyMoonEarth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//    m_LegacyEarth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//    m_LegacyMars->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//    m_LegacyPyramid->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//    m_LegacyMoonMars->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-//
-//    //
-//    // Present our back buffer to our front buffer
-//    //
-//    m_pSwapChain->Present(0, 0);
-//}
 
 void Application::HandleInput()
 {
@@ -854,10 +681,12 @@ void Application::HandleInput()
         if (GetAsyncKeyState('A'))
         {
             m_MainCamera->Strafe(-1.f * dt);
+            m_MainPlayerPawn->Strafe(-1.f * dt);
         }
         if (GetAsyncKeyState('D'))
         {
             m_MainCamera->Strafe(1.f * dt);
+            m_MainPlayerPawn->Strafe(1.f * dt);
         }
 
         // check the key queue for any char inputs
@@ -896,13 +725,13 @@ void Application::HandleInput()
                     m_MainCamera = m_StaticCamera;
                     break;
                 case '3':
-                    m_MainCamera = m_MainPlayerPawn->GetCamera();
+                    m_MainCamera = m_TopDownCamera;
                     break;
                 case 'P':
-                    //m_MainPlayerPawn->SwitchTPCamera();
+                    m_MainCamera = m_MainPlayerPawn->GetTPCamera();
                     break;
                 case 'F':
-                    //m_MainPlayerPawn->SwitchFPCamera();
+                    m_MainCamera = m_MainPlayerPawn->GetFPCamera();
                     break;
                 case VK_RETURN:
                     m_Typing = true;

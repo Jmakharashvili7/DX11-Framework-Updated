@@ -2,15 +2,18 @@
 #include "BaseObjectOBJ.h"
 #include "Camera.h"
 #include "FPCamera.h"
+#include "Log.h"
+#include "TPCamera.h"
 
 class PlayerPawn : public BaseObjectOBJ
 {
 private:
-    Camera* m_CurrentCamera, *m_TPCamera;
+    Camera* m_CurrentCamera;
+    TPCamera *m_TPCamera;
     FP_Camera *m_FPCamera;
     bool m_IsFPCamera = false;
     XMFLOAT3 m_Position, m_RightVec, m_UpVec, m_LookVec;
-    float m_RotationY = 0.0f, m_RotationP = 0.0f, m_Speed = 0.0f;
+    float m_RotationY = 0.0f, m_RotationP = 0.0f, m_Speed = 1.0f;
 public:
     PlayerPawn(MeshData meshData, XMFLOAT3 position, UINT WindowHeight, UINT WindowWidth, FLOAT nearDepth, FLOAT farDepth);
     ~PlayerPawn();
@@ -27,13 +30,10 @@ public:
     // Rotate the player character and the camera around the Y axis (angle is in radians)
     void RotateYaw(float angle);
 
-    void Render(XMMATRIX& worldMatrix, ConstantBuffer& buffer, ID3D11Buffer* constBuffer, 
-        ID3D11DeviceContext* deviceContext) override;
+    inline XMFLOAT3 GetPosition() { return m_Position; }
 
-    // Get the cameras
-    inline Camera* GetCamera() { return m_CurrentCamera; }
-    //inline void SwitchFPCamera() { if (!m_IsFPCamera) m_CurrentCamera = m_FPCamera; }
-    //inline void SwitchTPCamera() { if ( m_IsFPCamera) m_CurrentCamera = m_TPCamera; }
+    inline Camera* GetFPCamera() { return (Camera*) m_FPCamera; }
+    inline Camera* GetTPCamera() { return (Camera*) m_TPCamera; } 
 
     // To be called in the update function of the application
     void Update();

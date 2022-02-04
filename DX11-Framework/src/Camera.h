@@ -19,6 +19,8 @@ protected:
 public:
 	//Constructor and destructor for the camera
 	Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);
+	Camera(XMFLOAT3 position, XMFLOAT3 lookVec, XMFLOAT3 rightVec, XMFLOAT3 upVec, FLOAT windowWidth, 
+		FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);
 	~Camera();
 	
 	

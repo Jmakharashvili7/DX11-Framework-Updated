@@ -83,6 +83,9 @@
     <ClCompile Include="DX11-Framework\src\Log.cpp">
       <Filter>MainFolder</Filter>
     </ClCompile>
+    <ClCompile Include="DX11-Framework\src\TPCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
@@ -138,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Log.h">
       <Filter>MainFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\TPCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

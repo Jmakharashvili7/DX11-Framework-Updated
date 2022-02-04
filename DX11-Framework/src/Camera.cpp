@@ -13,6 +13,19 @@ Camera::Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight,
 {
 }
 
+Camera::Camera(XMFLOAT3 position, XMFLOAT3 lookVec, XMFLOAT3 rightVec, XMFLOAT3 upVec, FLOAT windowWidth, FLOAT windowHeight, 
+	FLOAT nearDepth, FLOAT farDepth) 
+	: m_Position(position), 
+	  m_LookVec(lookVec), 
+	  m_UpVec(upVec), 
+	  m_RightVec(1.0f, 0.0f, 0.0f), 
+	  m_WindowHeight(windowHeight),
+	  m_WindowWidth(windowWidth), 
+	  m_NearDepth(nearDepth), 
+	  m_FarDepth(farDepth)
+{
+}
+
 Camera::~Camera()
 {
 
