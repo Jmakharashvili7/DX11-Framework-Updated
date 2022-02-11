@@ -139,13 +139,6 @@ Application::Application()
     m_pSwapChain = nullptr;
     m_pRenderTargetView = nullptr;
     m_pVertexLayout = nullptr;
-    // legacy planets
-    m_LegacySun = nullptr;
-    m_LegacyMars = nullptr;
-    m_LegacyEarth = nullptr;
-    m_LegacyMoonMars = nullptr;
-    m_LegacyMoonEarth = nullptr;
-    m_LegacyPyramid = nullptr;
     // constant buffers
     m_pConstantBuffer = nullptr;
     // textures
@@ -201,7 +194,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
     m_pd3dDevice->CreateSamplerState(&sampDesc, &m_pSamplerLinear);
 
     // setup the game timer
-    m_GameTimer = new GameTimer();
+    m_GameTimer = make_unique<GameTimer>();
     m_GameTimer->Start();
 
     // start the game in a paused state
@@ -262,22 +255,9 @@ void Application::InitCameras()
     XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
 }
 
-HRESULT Application::InitObjects()
+void Application::InitObjects()
 {
-    HRESULT hr = S_OK; // stands for hex result
-
-    m_Moon = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
-
-    if (FAILED(hr))
-    return hr;
-
-    m_Mars = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
-
-    if (FAILED(hr))
-    return hr;
-
-    m_Earth = new BaseObjectOBJ(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice));
-
+    // setup mesh data and material
     MeshData meshData = OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice);
 
     Geometry geometry;
@@ -293,12 +273,13 @@ HRESULT Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_NewSun = new GameObject("TheSun", geometry, material);
+    m_NewSun = make_unique<GameObject>("TheSun", geometry, material);
+    m_NewSun->GetTransform()->SetPosition(1.3f, 1.3f, 1.3f);
+    m_NewSun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
+    m_NewSun->GetTransform()->SetScale(0.3f, 0.3f, 0.3f);
 
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
         XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
-
-    return hr;
 }
 
 void Application::InitLights()
@@ -583,29 +564,8 @@ void Application::Update()
 
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
-    //
-    // Animate Sun
-    //
-    //XMStoreFloat4x4(&m_Sun->m_World, XMMatrixTranslation(0.0f, -0.25f, 0.0f) * XMMatrixRotationY(t));
-
-    //
-    // Animate Mars
-    //
-    XMStoreFloat4x4(&m_Mars->m_World, XMMatrixScaling(0.3f, 0.3f, 0.3f) * XMMatrixRotationY(t) *
-        XMMatrixTranslation(1.7f, 0.0f, 0.0f) * XMMatrixRotationY(t));
-    //
-    // Animate Earth
-    //
-    XMStoreFloat4x4(&m_Earth->m_World, XMMatrixScaling(0.3f, 0.3f, 0.3f) * XMMatrixRotationY(t) *
-        XMMatrixTranslation(3.0f, 0.05f, 0.0f) * XMMatrixRotationY(t));
-
-    // Moon for Earth
-    XMStoreFloat4x4(&m_Moon->m_World, XMMatrixScaling(0.05f, 0.05f, 0.05f) * XMMatrixRotationY(t) * XMMatrixTranslation(3.0f, 0.05f, 0.0f) *
-        XMMatrixRotationY(t) * XMMatrixTranslation(0.5f, 0.1f, 0.0f));
-
     // Moon for Earth
     m_MainPlayerPawn->Update();
-
     m_NewSun->Update(dt);
 }
 
@@ -614,7 +574,7 @@ void Application::Draw()
     //
     // Clear the back buffer
     //
-    float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // red,green,blue,alpha   
+    float ClearColor[4] = { 0.0f, 0.0f, 0.3f, 1.0f }; // red,green,blue,alpha   
     m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, ClearColor);
 
     //
@@ -651,28 +611,8 @@ void Application::Draw()
     //
     // Render Object
     //
-    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureEarthRV);
-
-    m_Earth->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
-    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureMarsRV);
-
-    m_Mars->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
-    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureMoonRV);
-
-    m_Moon->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
     m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureSunRV);
     m_NewSun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
-    //m_MainPlayerPawn->Render(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
-
-    //m_MoonEarth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-    //m_Earth->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-    //m_Mars->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-    //m_Pyramid->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
-    //m_MoonMars->Render(world, m_cb, m_ConstantBuffer, m_ImmediateContext);
 
     //
     // Present our back buffer to our front buffer

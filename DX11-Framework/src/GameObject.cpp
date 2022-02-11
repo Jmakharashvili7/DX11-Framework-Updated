@@ -1,25 +1,26 @@
 #include "GameObject.h"
 
-GameObject::GameObject(string type, Geometry geometry, Material material) : m_Geometry(geometry), m_Type(type), m_Material(material)
+GameObject::GameObject(string type, Geometry geometry, Material material) :
+	m_Geometry(geometry),
+	m_Type(type),
+	m_Material(material),
+	m_Transform(new Transform(XMFLOAT3(0,0,0), XMFLOAT3(0,0,0), XMFLOAT3(1,1,1)))
 {
 	m_Parent = nullptr;
-	m_Position = XMFLOAT3();
-	m_Rotation = XMFLOAT3();
-	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
-
 	m_TextureRV = nullptr;
 }
 
 GameObject::~GameObject()
 {
+	delete m_Transform;
 }
 
 void GameObject::Update(float t)
 {
 	// Calculate world matrix
-	XMMATRIX scale = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
-	XMMATRIX rotation = XMMatrixRotationX(m_Rotation.x) * XMMatrixRotationY(m_Rotation.y) * XMMatrixRotationZ(m_Rotation.z);
-	XMMATRIX translation = XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
+	XMMATRIX scale = XMMatrixScaling(m_Transform->GetScale()->x, m_Transform->GetScale()->y, m_Transform->GetScale()->z);
+	XMMATRIX rotation = XMMatrixRotationX(m_Transform->GetRotation()->x) * XMMatrixRotationY(m_Transform->GetRotation()->y) * XMMatrixRotationZ(m_Transform->GetRotation()->z);
+	XMMATRIX translation = XMMatrixTranslation(m_Transform->GetPosition()->x, m_Transform->GetPosition()->y, m_Transform->GetPosition()->z);
 
 	XMStoreFloat4x4(&m_World, scale * rotation * translation);
 

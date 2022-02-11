@@ -410,6 +410,7 @@
     <ClCompile Include="DX11-Framework\src\Log.cpp" />
     <ClCompile Include="DX11-Framework\src\TPCamera.cpp" />
     <ClCompile Include="DX11-Framework\src\GameObject.cpp" />
+    <ClCompile Include="DX11-Framework\src\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -435,6 +436,8 @@
     <ClInclude Include="DX11-Framework\src\Log.h" />
     <ClInclude Include="DX11-Framework\src\TPCamera.h" />
     <ClInclude Include="DX11-Framework\src\GameObject.h" />
+    <ClInclude Include="DX11-Framework\src\Vector2D.h" />
+    <ClInclude Include="DX11-Framework\src\Transform.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>

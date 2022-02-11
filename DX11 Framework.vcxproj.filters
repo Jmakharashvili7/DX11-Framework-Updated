@@ -89,6 +89,9 @@
     <ClCompile Include="DX11-Framework\src\GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="DX11-Framework\src\Transform.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
@@ -150,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\GameObject.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Vector2D.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Transform.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

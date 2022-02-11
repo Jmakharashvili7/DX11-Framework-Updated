@@ -1,5 +1,13 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(504,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(505,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  DX11 Framework.cpp
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(51,29): warning C4100: 'angle': unreferenced formal parameter
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(52,29): warning C4100: 'angle': unreferenced formal parameter
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(54,26): warning C4100: 'force': unreferenced formal parameter
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(55,28): warning C4100: 'force': unreferenced formal parameter
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\KeyboardClass.h(27,57): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\KeyboardClass.h(27,79): warning C4834: discarding return value of function with 'nodiscard' attribute
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11 Framework.cpp(10,42): warning C4316: 'Application': object allocated on the heap may not be aligned 16
   Application.cpp
 C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(51,29): warning C4100: 'angle': unreferenced formal parameter
 C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(52,29): warning C4100: 'angle': unreferenced formal parameter
@@ -7,14 +15,17 @@ C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Upda
 C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Camera.h(55,28): warning C4100: 'force': unreferenced formal parameter
 C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\KeyboardClass.h(27,57): warning C4834: discarding return value of function with 'nodiscard' attribute
 C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\KeyboardClass.h(27,79): warning C4834: discarding return value of function with 'nodiscard' attribute
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(245,58): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(245,43): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(249,57): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(249,42): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(258,71): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(258,56): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(568,49): warning C4018: '>': signed/unsigned mismatch
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(573,49): warning C4018: '>': signed/unsigned mismatch
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(792,50): warning C4244: 'argument': conversion from 'int' to 'const unsigned char', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(714,26): warning C4189: 'key': local variable is initialized but not referenced
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(238,58): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(238,43): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(242,57): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(242,42): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(251,71): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(251,56): warning C4244: 'argument': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(549,49): warning C4018: '>': signed/unsigned mismatch
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(554,49): warning C4018: '>': signed/unsigned mismatch
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(565,11): warning C4189: 't': local variable is initialized but not referenced
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(732,50): warning C4244: 'argument': conversion from 'int' to 'const unsigned char', possible loss of data
+C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Application.cpp(654,26): warning C4189: 'key': local variable is initialized but not referenced
+  Generating Code...
+DX11 Framework.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
   DX11 Framework.vcxproj -> C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\bin\Win32\Debug\DX11 Framework.exe

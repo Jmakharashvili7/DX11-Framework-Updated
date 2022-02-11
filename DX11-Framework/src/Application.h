@@ -46,9 +46,16 @@ private:
 	// Keyboard input manager
 	// Shaders
 	BaseShader               *m_pTemplateShader;
+
 	// Texture Resource View
 	ID3D11ShaderResourceView *m_pTextureSunRV,*m_pTextureMoonRV, *m_pTextureEarthRV, *m_pTextureMarsRV, *m_pTextureNrms;
 	ID3D11SamplerState       *m_pSamplerLinear = nullptr;
+
+	// Other texture Rvs
+	ID3D11ShaderResourceView* _pGroundTextureRV = nullptr;
+	ID3D11ShaderResourceView* _pHerculesTextureRV = nullptr;
+	ID3D11SamplerState*		  _pSamplerLinear = nullptr;
+
 	// View Matrices
 	XMFLOAT4X4                m_world;
 	// Lighting variables	  
@@ -59,16 +66,16 @@ private:
 	// Cameras
 	Camera                    *m_MainCamera, *m_StaticCamera, *m_TopDownCamera;
 	FP_Camera                 *m_FPCamera;
-	// Game objects			  
-	BaseObject                *m_LegacySun, *m_LegacyMars, *m_LegacyEarth, *m_LegacyMoonEarth, *m_LegacyMoonMars, *m_LegacyPyramid;
+
 	// OBJ Game Objects
-	BaseObjectOBJ             *m_Mars, *m_Moon, *m_Earth;
-	GameObject				  *m_NewSun;
+	unique_ptr<GameObject>	  m_NewSun;
 	PlayerPawn                *m_MainPlayerPawn;
+
 	// variables for game state
 	bool					   m_Typing = false;
+
 	// variable for game time
-	GameTimer*				   m_GameTimer;
+	unique_ptr<GameTimer>	   m_GameTimer;
 private:
 	HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 	HRESULT InitDevice();
@@ -78,7 +85,7 @@ private:
 	HRESULT InitShadersAndInputLayout();
 	HRESULT LegacyInitObjects();
 	void InitCameras();
-	HRESULT InitObjects();
+	void InitObjects();
 
 	UINT m_WindowHeight;
 	UINT m_WindowWidth;
