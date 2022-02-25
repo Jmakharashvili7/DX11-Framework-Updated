@@ -273,10 +273,10 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_NewSun = make_unique<GameObject>("TheSun", geometry, material);
-    m_NewSun->GetTransform()->SetPosition(1.3f, 1.3f, 1.3f);
-    m_NewSun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
-    m_NewSun->GetTransform()->SetScale(0.3f, 0.3f, 0.3f);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, material);
+    m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
+    m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
+    m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
         XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
@@ -566,7 +566,7 @@ void Application::Update()
 
     // Moon for Earth
     m_MainPlayerPawn->Update();
-    m_NewSun->Update(dt);
+    m_Sun->Update(dt);
 }
 
 void Application::Draw()
@@ -612,7 +612,7 @@ void Application::Draw()
     // Render Object
     //
     m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureSunRV);
-    m_NewSun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
+    m_Sun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
     //
     // Present our back buffer to our front buffer

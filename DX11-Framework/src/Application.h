@@ -68,7 +68,7 @@ private:
 	FP_Camera                 *m_FPCamera;
 
 	// OBJ Game Objects
-	unique_ptr<GameObject>	  m_NewSun;
+	unique_ptr<GameObject>	  m_Sun, m_Mars, m_Earth, m_Moon;
 	PlayerPawn                *m_MainPlayerPawn;
 
 	// variables for game state
