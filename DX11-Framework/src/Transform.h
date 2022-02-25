@@ -1,19 +1,31 @@
 #pragma once
-#include <directxmath.h>
-#include <d3d11_1.h>
+#include "GameObject.h"
 
 using namespace DirectX;
 
 class Transform
 {
 private:
+	GameObject* m_Parent;
+	XMFLOAT4X4 m_World;
+
 	XMFLOAT3* m_Position;
 	XMFLOAT3* m_Rotation;
 	XMFLOAT3* m_Scale;
 public:
 	Transform() {}
-	Transform(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale);
+	Transform(GameObject* parent, XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale);
 	~Transform();
+
+	void Update();
+
+	// Get and set world matrix
+	inline const XMFLOAT4X4* GetWorld() { return &m_World; }
+	inline void SetWorld(XMFLOAT4X4 world) { m_World = world; }
+
+	// Get and set parent
+	inline const GameObject* GetParent() { return m_Parent; }
+	inline void SetParent(GameObject* parent) { m_Parent = parent; }
 
 	// Setters and Getters for position
 	void SetPosition(XMFLOAT3 position) { m_Position = &position; }

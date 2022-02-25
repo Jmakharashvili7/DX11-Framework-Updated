@@ -23,6 +23,7 @@
 #include "PlayerPawn.h"
 #include "Log.h"
 #include "GameObject.h"
+#include "Transform.h"
 
 using namespace DirectX;
 
@@ -83,7 +84,6 @@ private:
 	void InitLights();
 	HRESULT InitTextures();
 	HRESULT InitShadersAndInputLayout();
-	HRESULT LegacyInitObjects();
 	void InitCameras();
 	void InitObjects();
 
@@ -98,7 +98,6 @@ public:
 
 	void Update();
 	void Draw();
-	void LegacyDraw();
 	void HandleInput();
 };
 

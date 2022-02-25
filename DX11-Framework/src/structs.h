@@ -3,6 +3,24 @@
 
 using namespace DirectX;
 
+struct Geometry
+{
+	ID3D11Buffer* vertexBuffer;
+	ID3D11Buffer* indexBuffer;
+
+	UINT indexCount;
+	UINT vertexBufferStride;
+	UINT vertexBufferOffset;
+};
+
+struct Material
+{
+	XMFLOAT4 diffuse;
+	XMFLOAT4 ambient;
+	XMFLOAT4 specular;
+	float specularPower;
+};
+
 struct MeshData
 {
 	ID3D11Buffer* VertexBuffer;

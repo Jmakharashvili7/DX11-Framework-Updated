@@ -273,7 +273,7 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, material);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
@@ -313,6 +313,8 @@ HRESULT Application::InitTextures()
 
     if (FAILED(hr))
         return hr;
+
+    m_Sun->GetAppearance()->SetTextureRV(m_pTextureSunRV);
 
     hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/MoonTex.dds", nullptr, &m_pTextureMoonRV);
 
@@ -611,7 +613,6 @@ void Application::Draw()
     //
     // Render Object
     //
-    m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureSunRV);
     m_Sun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
 
     //

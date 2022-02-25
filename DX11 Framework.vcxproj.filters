@@ -92,6 +92,9 @@
     <ClCompile Include="DX11-Framework\src\Transform.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="DX11-Framework\src\Appearance.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
@@ -158,6 +161,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Transform.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Appearance.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
