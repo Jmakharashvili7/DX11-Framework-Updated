@@ -18,9 +18,6 @@
     <Filter Include="FileLoaders">
       <UniqueIdentifier>{eef37684-204c-4913-932b-6fc2a3d48462}</UniqueIdentifier>
     </Filter>
-    <Filter Include="InputManager">
-      <UniqueIdentifier>{49c91a7c-b567-427a-b488-59cb20183cea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cameras">
       <UniqueIdentifier>{95f5712e-306c-48f2-bbd9-8da42cfb534a}</UniqueIdentifier>
     </Filter>
@@ -29,6 +26,9 @@
     </Filter>
     <Filter Include="Textures">
       <UniqueIdentifier>{d9bd104e-f3e2-4fd7-a7b7-47809cb04ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{49c91a7c-b567-427a-b488-59cb20183cea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="DX11-Framework\src\Appearance.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModel.cpp">
+      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Appearance.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModel.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

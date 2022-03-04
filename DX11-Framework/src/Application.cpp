@@ -692,6 +692,12 @@ void Application::HandleInput()
                 case 'F':
                     m_MainCamera = m_MainPlayerPawn->GetFPCamera();
                     break;
+                case 'O':
+                    if (KeyboardClass::IsKeyPressed('O'))
+                    {
+                        CORE_INFO("test");
+                    }
+                    break;
                 case VK_RETURN:
                     m_Typing = true;
                     break;

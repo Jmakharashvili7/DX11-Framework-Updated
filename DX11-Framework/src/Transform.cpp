@@ -1,10 +1,10 @@
 #include "Transform.h"
 
-Transform::Transform(GameObject* parent, XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale) :
+Transform::Transform(GameObject* parent, Vector3 position, Vector3 rotation, Vector3 scale) :
 	m_Parent(nullptr),
-	m_Position(new XMFLOAT3(position.x, position.y, position.z)),
-	m_Rotation(new XMFLOAT3(rotation.x, rotation.y, rotation.z)),
-	m_Scale(new XMFLOAT3(scale.x, scale.y, scale.z))
+	m_Position(new Vector3(position)),
+	m_Rotation(new Vector3(rotation)),
+	m_Scale(new Vector3(scale))
 {
 }
 

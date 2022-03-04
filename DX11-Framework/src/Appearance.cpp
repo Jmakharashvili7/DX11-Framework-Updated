@@ -9,10 +9,8 @@ Appearance::Appearance(Material* material, Geometry geometry) :
 
 Appearance::~Appearance()
 {
-	if (m_material) delete m_material;
-
-	m_textureRV = nullptr;
-	m_textureRV->Release();
+	if (m_material) m_material;
+	if (m_textureRV) m_textureRV->Release();
 }
 
 void Appearance::Draw(ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* immediateContext)

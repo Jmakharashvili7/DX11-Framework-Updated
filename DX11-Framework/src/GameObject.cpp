@@ -4,17 +4,17 @@
 GameObject::GameObject(string type, Geometry geometry, Material* material) :
 	m_Type(type),
 	m_Appearance(new Appearance(material, geometry)),
-	m_Transform(new Transform(nullptr, XMFLOAT3(0,0,0), XMFLOAT3(0,0,0), XMFLOAT3(1,1,1)))
+	m_Transform(new Transform(nullptr, Vector3(0,0,0), Vector3(0,0,0), Vector3(1,1,1)))
 {
 }
 
 GameObject::~GameObject()
 {
 	if (m_Transform) delete m_Transform;
-	//if (m_Appearance) delete m_Appearance;
+	if (m_Appearance) delete m_Appearance;
 }
 
-void GameObject::Update(float t)
+void GameObject::Update(const float dt)
 {
 	m_Transform->Update();
 }

@@ -30,7 +30,7 @@ public:
 	inline Appearance* GetAppearance() const { return m_Appearance; }
 
 	// Update function which sets the world matrix and takes in deltaTime
-	void Update(float deltaTime);
+	void Update(const float dt);
 
 	// Function for drawing the object
 	void Draw(XMMATRIX& worldMatrix, ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* immediateContext);

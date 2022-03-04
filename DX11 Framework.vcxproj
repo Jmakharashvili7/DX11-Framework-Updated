@@ -412,6 +412,7 @@
     <ClCompile Include="DX11-Framework\src\TPCamera.cpp" />
     <ClCompile Include="DX11-Framework\src\GameObject.cpp" />
     <ClCompile Include="DX11-Framework\src\Transform.cpp" />
+    <ClCompile Include="ParticleModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -440,6 +441,7 @@
     <ClInclude Include="DX11-Framework\src\GameObject.h" />
     <ClInclude Include="DX11-Framework\src\Vector2D.h" />
     <ClInclude Include="DX11-Framework\src\Transform.h" />
+    <ClInclude Include="ParticleModel.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>
