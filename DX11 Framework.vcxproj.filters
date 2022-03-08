@@ -38,12 +38,6 @@
     <ClCompile Include="DX11-Framework\src\Application.cpp">
       <Filter>MainFolder</Filter>
     </ClCompile>
-    <ClCompile Include="DX11-Framework\src\BaseObject.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="DX11-Framework\src\BaseObjectOBJ.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="DX11-Framework\src\BaseShader.cpp">
       <Filter>Shaders</Filter>
     </ClCompile>
@@ -89,25 +83,19 @@
     <ClCompile Include="DX11-Framework\src\GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="DX11-Framework\src\Transform.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="DX11-Framework\src\ParticleModel.cpp">
+      <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="DX11-Framework\src\Appearance.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleModel.cpp">
+    <ClCompile Include="DX11-Framework\src\Transform.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
       <Filter>MainFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11-Framework\src\BaseObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11-Framework\src\BaseObjectOBJ.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\BaseShader.h">
       <Filter>Shaders</Filter>
@@ -163,14 +151,17 @@
     <ClInclude Include="DX11-Framework\src\Vector2D.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX11-Framework\src\Transform.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="DX11-Framework\src\ParticleModel.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Appearance.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleModel.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Transform.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\Vector3.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

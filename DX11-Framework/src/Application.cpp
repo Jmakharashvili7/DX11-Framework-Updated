@@ -567,7 +567,7 @@ void Application::Update()
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
     // Moon for Earth
-    m_MainPlayerPawn->Update();
+    //m_MainPlayerPawn->Update();
     m_Sun->Update(dt);
 }
 
@@ -613,7 +613,7 @@ void Application::Draw()
     //
     // Render Object
     //
-    m_Sun->Draw(world, m_cb, m_pConstantBuffer, m_pImmediateContext);
+    m_Sun->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
 
     //
     // Present our back buffer to our front buffer
@@ -630,37 +630,22 @@ void Application::HandleInput()
         if (GetAsyncKeyState('W'))
         {
             m_MainCamera->Walk(1.f * dt);
-            m_MainPlayerPawn->Walk(dt);
+            //m_MainPlayerPawn->Walk(dt);
         }
         if (GetAsyncKeyState('S'))
         {
             m_MainCamera->Walk(-1.f * dt);
-            m_MainPlayerPawn->Walk(-dt);
+            //m_MainPlayerPawn->Walk(-dt);
         }
         if (GetAsyncKeyState('A'))
         {
             m_MainCamera->Strafe(-1.f * dt);
-            m_MainPlayerPawn->Strafe(-1.f * dt);
+            //m_MainPlayerPawn->Strafe(-1.f * dt);
         }
         if (GetAsyncKeyState('D'))
         {
             m_MainCamera->Strafe(1.f * dt);
-            m_MainPlayerPawn->Strafe(1.f * dt);
-        }
-
-        // check the key queue for any char inputs
-        if (!KeyboardClass::CharBufferIsEmpty() && m_Typing)
-        {
-            unsigned char ch = KeyboardClass::ReadChar(); 
-            unsigned int key = KeyboardClass::ReadKey().GetKeyCode();
-
-            //if (key == VK_RETURN)
-            //    typing = false;
-
-            std::string outmsg = "Char: ";
-            outmsg += ch;
-            outmsg += "\n";
-            OutputDebugStringA(outmsg.c_str());
+            //m_MainPlayerPawn->Strafe(1.f * dt);
         }
 
         // check the key queue for any key inputs
@@ -686,20 +671,12 @@ void Application::HandleInput()
                 case '3':
                     m_MainCamera = m_TopDownCamera;
                     break;
-                case 'P':
-                    m_MainCamera = m_MainPlayerPawn->GetTPCamera();
-                    break;
-                case 'F':
-                    m_MainCamera = m_MainPlayerPawn->GetFPCamera();
-                    break;
                 case 'O':
                     if (KeyboardClass::IsKeyPressed('O'))
                     {
+                        m_Sun->GetParticleModel()->MoveConstVelocity(dt);
                         CORE_INFO("test");
                     }
-                    break;
-                case VK_RETURN:
-                    m_Typing = true;
                     break;
                 case VK_ESCAPE:
                     if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
@@ -721,8 +698,8 @@ void Application::HandleInput()
                 m_MainCamera->RotateP(MouseClass::GetDY());
                 m_MainCamera->RotateY(MouseClass::GetDX());
 
-                m_MainPlayerPawn->RotatePitch(MouseClass::GetDY());
-                m_MainPlayerPawn->RotateYaw(MouseClass::GetDX());
+                //m_MainPlayerPawn->RotatePitch(MouseClass::GetDY());
+                //m_MainPlayerPawn->RotateYaw(MouseClass::GetDX());
 
                 m_MainCamera->UpdateViewMatrix();
             }

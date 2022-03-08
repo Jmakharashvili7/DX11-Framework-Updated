@@ -1,11 +1,11 @@
 #pragma once
-#include "BaseObjectOBJ.h"
 #include "Camera.h"
 #include "FPCamera.h"
 #include "Log.h"
 #include "TPCamera.h"
+#include "GameObject.h"
 
-class PlayerPawn : public BaseObjectOBJ
+class PlayerPawn : public GameObject
 {
 private:
     Camera* m_CurrentCamera;

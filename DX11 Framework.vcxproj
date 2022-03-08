@@ -37,7 +37,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -394,8 +394,6 @@
     <ClCompile Include="DX11-Framework\src\Appearance.cpp" />
     <ClCompile Include="DX11 Framework.cpp" />
     <ClCompile Include="DX11-Framework\src\Application.cpp" />
-    <ClCompile Include="DX11-Framework\src\BaseObject.cpp" />
-    <ClCompile Include="DX11-Framework\src\BaseObjectOBJ.cpp" />
     <ClCompile Include="DX11-Framework\src\BaseShader.cpp" />
     <ClCompile Include="DX11-Framework\src\Camera.cpp" />
     <ClCompile Include="DX11-Framework\src\DDSTextureLoader.cpp" />
@@ -412,7 +410,7 @@
     <ClCompile Include="DX11-Framework\src\TPCamera.cpp" />
     <ClCompile Include="DX11-Framework\src\GameObject.cpp" />
     <ClCompile Include="DX11-Framework\src\Transform.cpp" />
-    <ClCompile Include="ParticleModel.cpp" />
+    <ClCompile Include="DX11-Framework\src\ParticleModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -420,8 +418,6 @@
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Appearance.h" />
     <ClInclude Include="DX11-Framework\src\Application.h" />
-    <ClInclude Include="DX11-Framework\src\BaseObject.h" />
-    <ClInclude Include="DX11-Framework\src\BaseObjectOBJ.h" />
     <ClInclude Include="DX11-Framework\src\BaseShader.h" />
     <ClInclude Include="DX11-Framework\src\Camera.h" />
     <ClInclude Include="DX11-Framework\src\DDSTextureLoader.h" />
@@ -441,7 +437,8 @@
     <ClInclude Include="DX11-Framework\src\GameObject.h" />
     <ClInclude Include="DX11-Framework\src\Vector2D.h" />
     <ClInclude Include="DX11-Framework\src\Transform.h" />
-    <ClInclude Include="ParticleModel.h" />
+    <ClInclude Include="DX11-Framework\src\ParticleModel.h" />
+    <ClInclude Include="DX11-Framework\src\Vector3.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>

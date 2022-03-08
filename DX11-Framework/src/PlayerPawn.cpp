@@ -1,7 +1,7 @@
 #include "PlayerPawn.h"
+#include "Transform.h"
 
 PlayerPawn::PlayerPawn(MeshData meshData, XMFLOAT3 position, UINT WindowHeight, UINT WindowWidth, FLOAT nearDepth, FLOAT farDepth) :
-	BaseObjectOBJ(meshData), 
     m_Position(position), 
     m_RightVec{1.0f, 0.0f, 0.0f}, 
     m_LookVec{0.0f, 0.0f, 1.0f}, 
@@ -45,7 +45,7 @@ void PlayerPawn::RotateYaw(float angle)
 
 void PlayerPawn::Update()
 {
-	XMStoreFloat4x4(&m_World, XMMatrixRotationY(m_RotationY) * XMMatrixRotationX(m_RotationP) * 
+	XMStoreFloat4x4(m_Transform->GetWorld(), XMMatrixRotationY(m_RotationY) * XMMatrixRotationX(m_RotationP) * 
 		XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z));
 
 	m_FPCamera->SetPosition(m_Position);

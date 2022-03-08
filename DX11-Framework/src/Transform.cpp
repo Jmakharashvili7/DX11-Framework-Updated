@@ -1,5 +1,13 @@
 #include "Transform.h"
 
+Transform::Transform()
+	:m_Parent(nullptr),
+	m_Position(new Vector3(0,0,0)),
+	m_Rotation(new Vector3(0,0,0)),
+	m_Scale(new Vector3(0,0,0))
+{
+}
+
 Transform::Transform(GameObject* parent, Vector3 position, Vector3 rotation, Vector3 scale) :
 	m_Parent(nullptr),
 	m_Position(new Vector3(position)),
@@ -26,8 +34,14 @@ void Transform::Update()
 
 	if (m_Parent != nullptr)
 	{
-		XMMATRIX matrix = XMLoadFloat4x4(m_Parent->GetTransform()->GetWorld());
-		XMMATRIX matrix2 = XMLoadFloat4x4(this->GetWorld());
+		XMMATRIX matrix = XMLoadFloat4x4(m_Parent->GetTransform()->GetWorldConst());
+		XMMATRIX matrix2 = XMLoadFloat4x4(this->GetWorldConst());
 		XMStoreFloat4x4(&m_World, matrix * matrix2);
 	}
+}
+
+void Transform::Draw(ConstantBuffer& buffer)
+{
+	XMMATRIX worldMatrix = XMLoadFloat4x4(&m_World);
+	buffer.mWorld = XMMatrixTranspose(worldMatrix);
 }

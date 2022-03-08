@@ -13,14 +13,16 @@ private:
 	Vector3* m_Rotation;
 	Vector3* m_Scale;
 public:
-	Transform() {}
+	Transform();
 	Transform(GameObject* parent, Vector3 position, Vector3 rotation, Vector3 scale);
 	~Transform();
 
 	void Update();
+	void Draw(ConstantBuffer& buffer);
 
 	// Get and set world matrix
-	inline const XMFLOAT4X4* GetWorld() { return &m_World; }
+	inline XMFLOAT4X4* GetWorld() { return &m_World; }
+	inline const XMFLOAT4X4* GetWorldConst() { return &m_World; }
 	inline void SetWorld(XMFLOAT4X4 world) { m_World = world; }
 
 	// Get and set parent
@@ -28,7 +30,7 @@ public:
 	inline void SetParent(GameObject* parent) { m_Parent = parent; }
 
 	// Setters and Getters for position
-	void SetPosition(Vector3 position) { m_Position = &position; }
+	void SetPosition(Vector3* position) { m_Position = position; }
 	void SetPosition(float x, float y, float z) { m_Position->x = x; m_Position->y = y; m_Position->z = z; }
 
 	Vector3* GetPosition() const { return m_Position; }

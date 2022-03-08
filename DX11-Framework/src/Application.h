@@ -11,8 +11,6 @@
 #include "DDSTextureLoader.h"
 #include "resource.h"	
 #include "structs.h"
-#include "BaseObject.h"
-#include "BaseObjectOBJ.h"
 #include "OBJLoader.h"
 #include "Camera.h"
 #include "BaseShader.h"
@@ -24,6 +22,8 @@
 #include "Log.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Appearance.h"
+#include "ParticleModel.h"
 
 using namespace DirectX;
 
