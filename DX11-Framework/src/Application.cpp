@@ -273,7 +273,7 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, &material);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 50.0f);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
@@ -562,7 +562,7 @@ void Application::Update()
     // Update the camera
     m_MainCamera->Update();
 
-     XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
+    XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
 
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
@@ -674,8 +674,7 @@ void Application::HandleInput()
                 case 'O':
                     if (KeyboardClass::IsKeyPressed('O'))
                     {
-                        m_Sun->GetParticleModel()->MoveConstVelocity(dt);
-                        CORE_INFO("test");
+                        m_Sun->GetParticleModel()->MoveRight(dt);
                     }
                     break;
                 case VK_ESCAPE:

@@ -22,7 +22,7 @@ protected:
 	ParticleModel* m_ParticleModel;
 public:
 	GameObject() {}
-	GameObject(string type, Geometry geometry, Material* material);
+	GameObject(string type, Geometry geometry, Material* material, float mass);
 	~GameObject();
 
 	// returns a string of object type

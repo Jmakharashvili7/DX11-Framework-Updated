@@ -92,6 +92,9 @@
     <ClCompile Include="DX11-Framework\src\Transform.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="DX11-Framework\src\Vector3.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
