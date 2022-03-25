@@ -625,15 +625,19 @@ void Application::HandleInput()
 {
     float dt = m_GameTimer->GetDeltaTime();
 
+
     if (!m_GameTimer->GetPauseState())
     {
         m_MainCamera->HandleInput(dt);
 
-        // check the key queue for any key inputs
+        // check the key queue for any key inputs (key inputs meant to be repeated should be kept outside this function)
         if (!KeyboardClass::KeyBufferIsEmpty() && !m_Typing)
         {
             unsigned int key = KeyboardClass::ReadKey().GetKeyCode();
             
+            // Handle input for all the game objects
+            m_Sun->HandleInput(dt, key);
+
             // Main logic for responding to key input
             switch (key)
             {
@@ -651,12 +655,6 @@ void Application::HandleInput()
                     break;
                 case '3':
                     m_MainCamera = m_TopDownCamera;
-                    break;
-                case 'O':
-                    if (KeyboardClass::IsKeyPressed('O'))
-                    {
-                        m_Sun->GetParticleModel()->MoveRight(dt);
-                    }
                     break;
                 case VK_ESCAPE:
                     if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
@@ -677,10 +675,6 @@ void Application::HandleInput()
             {
                 m_MainCamera->RotateP(MouseClass::GetDY());
                 m_MainCamera->RotateY(MouseClass::GetDX());
-
-                //m_MainPlayerPawn->RotatePitch(MouseClass::GetDY());
-                //m_MainPlayerPawn->RotateYaw(MouseClass::GetDX());
-
                 m_MainCamera->UpdateViewMatrix();
             }
         }

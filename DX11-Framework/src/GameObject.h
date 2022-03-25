@@ -36,6 +36,7 @@ public:
 
 	// Update function which sets the world matrix and takes in deltaTime
 	void Update(const float dt);
+	void HandleInput(const float dt, const unsigned int key);
 
 	// Function for drawing the object
 	void Draw(ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* immediateContext);

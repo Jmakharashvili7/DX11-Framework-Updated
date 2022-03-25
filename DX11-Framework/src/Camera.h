@@ -47,14 +47,14 @@ public:
 
 	// Update function to make the current view and projection matrices
 	virtual void Update();
-	virtual void HandleInput(float dt) {}
+	virtual void HandleInput(const float dt) {}
 
 	// Rotation functions
-	virtual void RotateP(float angle) {}
-	virtual void RotateY(float angle) {}
+	virtual void RotateP(const float angle) {}
+	virtual void RotateY(const float angle) {}
 
-	virtual void Walk(float force) {}
-	virtual void Strafe(float force) {}
+	virtual void Walk(const float force) {}
+	virtual void Strafe(const float force) {}
 
 	// A function to reshape the camera volume if the window is resized.
 	void Reshape(FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth);

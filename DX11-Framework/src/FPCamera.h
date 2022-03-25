@@ -7,12 +7,12 @@ public:
 	~FP_Camera() {}
 
 	// Movement functions
-	void HandleInput(float dt) override;
+	void HandleInput(const float dt) override;
 
-	void Strafe(float force) override;
-	void Walk(float force) override;
+	void Strafe(const float force) override;
+	void Walk(const float force) override;
 
-	void RotateP(float angle) override;
-	void RotateY(float angle) override;
+	void RotateP(const float angle) override;
+	void RotateY(const float angle) override;
 };
 

@@ -8,8 +8,8 @@ std::queue<unsigned char> KeyboardClass::s_CharBuffer;
 
 void KeyboardClass::Init()
 {
-	s_AutoRepeatChars = false;
-	s_AutoRepeatKeys = false;
+	s_AutoRepeatChars = true;
+	s_AutoRepeatKeys = true;
 }
 
 KeyEvent KeyboardClass::ReadKey()

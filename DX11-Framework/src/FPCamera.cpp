@@ -1,4 +1,6 @@
 #include "FPCamera.h"
+#include "Log.h"
+#include "KeyboardClass.h"
 
 FP_Camera::FP_Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, FLOAT nearDepth, FLOAT farDepth) :
 	Camera( position, windowWidth, windowHeight, nearDepth, farDepth)
@@ -6,7 +8,7 @@ FP_Camera::FP_Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, F
 }
 
 
-void FP_Camera::Strafe(float force)
+void FP_Camera::Strafe(const float force)
 {
 	XMVECTOR s = XMVectorReplicate(force);
 	XMVECTOR r = XMLoadFloat3(&m_RightVec);
@@ -15,7 +17,7 @@ void FP_Camera::Strafe(float force)
 	XMStoreFloat3(&m_Position, XMVectorMultiplyAdd(s, r, p));
 }
 
-void FP_Camera::Walk(float force)
+void FP_Camera::Walk(const float force)
 {
 	XMVECTOR s = XMVectorReplicate(force);
 	XMVECTOR l = XMLoadFloat3(&m_LookVec);
@@ -26,7 +28,7 @@ void FP_Camera::Walk(float force)
 }
 
 
-void FP_Camera::RotateP(float angle)
+void FP_Camera::RotateP(const float angle)
 {
 	// Rotate up and look vector about the right vector
 	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_RightVec), angle);
@@ -35,7 +37,7 @@ void FP_Camera::RotateP(float angle)
 	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
 }
 
-void FP_Camera::RotateY(float angle)
+void FP_Camera::RotateY(const float angle)
 {
 	// Rotate the basis vectors about the world y-axis
 	XMMATRIX R = XMMatrixRotationY(angle);
@@ -45,22 +47,22 @@ void FP_Camera::RotateY(float angle)
 	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
 }
 
-void FP_Camera::HandleInput(float dt)
+void FP_Camera::HandleInput(const float dt)
 {
 	if (GetAsyncKeyState('W'))
 	{
-	    Walk(1.f * dt);
+	    Walk(1.0f * dt);
 	}
 	if (GetAsyncKeyState('S'))
 	{
-	    Walk(-1.f * dt);
+	    Walk(-1.0f * dt);
 	}
 	if (GetAsyncKeyState('A'))
 	{
-	    Strafe(-1.f * dt);
+	    Strafe(-1.0f * dt);
 	}
 	if (GetAsyncKeyState('D'))
 	{
-	    Strafe(1.f * dt);
+	    Strafe(1.0f * dt);
 	}
 }

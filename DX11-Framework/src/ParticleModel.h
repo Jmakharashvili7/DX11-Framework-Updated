@@ -5,7 +5,7 @@ class ParticleModel
 {
 private:
 	float m_Acceleration, m_Mass;
-	Vector3 m_Velocity, m_NetForce;
+	Vector3 m_Velocity, m_MaxVelocity, m_NetForce;
 	Transform* m_transform;
 	GameObject* m_parent;
 public:
@@ -13,7 +13,12 @@ public:
 	~ParticleModel();
 
 	void Update(const float dt);
-	void MoveRight(const float dt);
+	void HandleInput(const float dt, const unsigned int key);
+
+	void MoveXAxis(const float dt);
+	void MoveYAxis(const float dt);
+	void MoveZAxis(const float dt);
+
 	void MoveConstAcceleration(const float dt);
 
 	// Get and set for velocity 

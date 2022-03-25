@@ -23,6 +23,11 @@ void GameObject::Update(const float dt)
 	m_ParticleModel->Update(dt);
 }
 
+void GameObject::HandleInput(const float dt, const unsigned int key)
+{
+	m_ParticleModel->HandleInput(dt, key);
+}
+
 void GameObject::Draw(ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* immediateContext)
 {
 	m_Transform->Draw(buffer);
