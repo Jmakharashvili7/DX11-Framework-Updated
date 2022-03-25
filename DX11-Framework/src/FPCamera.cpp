@@ -5,6 +5,7 @@ FP_Camera::FP_Camera(XMFLOAT3 position, FLOAT windowWidth, FLOAT windowHeight, F
 {
 }
 
+
 void FP_Camera::Strafe(float force)
 {
 	XMVECTOR s = XMVectorReplicate(force);
@@ -42,4 +43,24 @@ void FP_Camera::RotateY(float angle)
 	XMStoreFloat3(&m_RightVec, XMVector3TransformNormal(XMLoadFloat3(&m_RightVec), R));
 	XMStoreFloat3(&m_UpVec, XMVector3TransformNormal(XMLoadFloat3(&m_UpVec), R));
 	XMStoreFloat3(&m_LookVec, XMVector3TransformNormal(XMLoadFloat3(&m_LookVec), R));
+}
+
+void FP_Camera::HandleInput(float dt)
+{
+	if (GetAsyncKeyState('W'))
+	{
+	    Walk(1.f * dt);
+	}
+	if (GetAsyncKeyState('S'))
+	{
+	    Walk(-1.f * dt);
+	}
+	if (GetAsyncKeyState('A'))
+	{
+	    Strafe(-1.f * dt);
+	}
+	if (GetAsyncKeyState('D'))
+	{
+	    Strafe(1.f * dt);
+	}
 }

@@ -3,6 +3,7 @@
 #include <directxmath.h>
 #include <memory>
 #include "structs.h"
+#include "GameTime.h"
 
 class Camera
 {
@@ -46,6 +47,7 @@ public:
 
 	// Update function to make the current view and projection matrices
 	virtual void Update();
+	virtual void HandleInput(float dt) {}
 
 	// Rotation functions
 	virtual void RotateP(float angle) {}

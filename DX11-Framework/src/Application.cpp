@@ -627,26 +627,7 @@ void Application::HandleInput()
 
     if (!m_GameTimer->GetPauseState())
     {
-        if (GetAsyncKeyState('W'))
-        {
-            m_MainCamera->Walk(1.f * dt);
-            //m_MainPlayerPawn->Walk(dt);
-        }
-        if (GetAsyncKeyState('S'))
-        {
-            m_MainCamera->Walk(-1.f * dt);
-            //m_MainPlayerPawn->Walk(-dt);
-        }
-        if (GetAsyncKeyState('A'))
-        {
-            m_MainCamera->Strafe(-1.f * dt);
-            //m_MainPlayerPawn->Strafe(-1.f * dt);
-        }
-        if (GetAsyncKeyState('D'))
-        {
-            m_MainCamera->Strafe(1.f * dt);
-            //m_MainPlayerPawn->Strafe(1.f * dt);
-        }
+        m_MainCamera->HandleInput(dt);
 
         // check the key queue for any key inputs
         if (!KeyboardClass::KeyBufferIsEmpty() && !m_Typing)

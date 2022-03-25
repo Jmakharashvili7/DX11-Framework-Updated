@@ -1,6 +1,3 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(504,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(505,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  ParticleModel.cpp
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\Vector3.h(25,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\DX11-Framework\src\ParticleModel.cpp(30,43): warning C4100: 'dt': unreferenced formal parameter
-  DX11 Framework.vcxproj -> C:\Users\m017735i\OneDrive - Staffordshire University\Github\DX11-Framework-Updated\bin\Win32\Debug\DX11 Framework.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(495,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(496,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  DX11 Framework.vcxproj -> C:\Users\jmakh\Documents\Visual Studio 2019\Projects\Github\DX11-Framework-Updated\bin\Win32\Debug\DX11 Framework.exe
