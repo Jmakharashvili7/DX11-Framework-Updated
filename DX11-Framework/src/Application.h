@@ -24,6 +24,7 @@
 #include "Transform.h"
 #include "Appearance.h"
 #include "ParticleModel.h"
+#include "PhysicsSystem.h"
 
 using namespace DirectX;
 
@@ -77,6 +78,7 @@ private:
 
 	// variable for game time
 	unique_ptr<GameTimer>	   m_GameTimer;
+	PhysicsSystem*             m_PhysicsSystem;
 private:
 	HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 	HRESULT InitDevice();

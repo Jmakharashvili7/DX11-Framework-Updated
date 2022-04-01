@@ -412,6 +412,7 @@
     <ClCompile Include="DX11-Framework\src\Transform.cpp" />
     <ClCompile Include="DX11-Framework\src\ParticleModel.cpp" />
     <ClCompile Include="DX11-Framework\src\Vector3.cpp" />
+    <ClCompile Include="DX11-Framework\src\PhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -440,6 +441,7 @@
     <ClInclude Include="DX11-Framework\src\Transform.h" />
     <ClInclude Include="DX11-Framework\src\ParticleModel.h" />
     <ClInclude Include="DX11-Framework\src\Vector3.h" />
+    <ClInclude Include="DX11-Framework\src\PhysicsSystem.h" />
     <ResourceCompile Include="DX11 Framework.rc" />
   </ItemGroup>
   <ItemGroup>

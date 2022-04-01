@@ -49,6 +49,18 @@ struct Vector3
 		return Vector3(x / magnitude, y / magnitude, z / magnitude);
 	}
 
+	float DistanceSquared(Vector3 other)
+	{
+		return std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2);
+
+	}
+
+	float Distance(Vector3 other)
+	{
+		float distanceSqrd = DistanceSquared(other);
+		return std::sqrt(distanceSqrd);
+	}
+
 	Vector3 operator+(const Vector3& other)
 	{
 		return Vector3(x + other.x, y + other.y, z + other.z);

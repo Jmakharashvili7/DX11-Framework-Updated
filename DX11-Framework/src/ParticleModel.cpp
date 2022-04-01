@@ -13,7 +13,8 @@ ParticleModel::ParticleModel(GameObject* parent, float mass) :
 	m_NetForce(0.0f, 0.0f, 0.0f),
 	m_Mass(mass),
 	m_transform(nullptr),
-	m_MaxVelocity(1.5f, 1.5f, 1.5f)
+	m_MaxVelocity(1.5f, 1.5f, 1.5f),
+	m_BoundSphere(new BoundingSphere())
 {
 }
 
@@ -29,6 +30,9 @@ void ParticleModel::Update(const float dt)
 
 	Vector3* position = m_parent->GetTransform()->GetPosition();
 	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce / m_Mass) * dt));
+
+	m_BoundSphere->center = *position;
+	m_BoundSphere->radius = 1.0f;
 }
 
 void ParticleModel::HandleInput(const float dt, const unsigned int key)

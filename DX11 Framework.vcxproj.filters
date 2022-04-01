@@ -95,6 +95,9 @@
     <ClCompile Include="DX11-Framework\src\Vector3.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="DX11-Framework\src\PhysicsSystem.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11-Framework\src\Application.h">
@@ -165,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="DX11-Framework\src\Vector3.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11-Framework\src\PhysicsSystem.h">
+      <Filter>GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,16 +8,13 @@ private:
 	Vector3 m_Velocity, m_MaxVelocity, m_NetForce;
 	Transform* m_transform;
 	GameObject* m_parent;
+	BoundingSphere* m_BoundSphere;
 public:
 	ParticleModel(GameObject* parent, float mass);
 	~ParticleModel();
 
 	void Update(const float dt);
 	void HandleInput(const float dt, const unsigned int key);
-
-	void MoveXAxis(const float dt);
-	void MoveYAxis(const float dt);
-	void MoveZAxis(const float dt);
 
 	void MoveConstAcceleration(const float dt);
 
@@ -32,6 +29,13 @@ public:
 	// Get and set for mass
 	inline float GetMass() const { return m_Mass; }
 	inline void SetMass(float mass) { m_Mass = mass; }
+
+	// Get and set bounding Sphere
+	inline BoundingSphere* GetBoundSphere() const { return m_BoundSphere; }
+	inline void SetBoundSphere(BoundingSphere* boundSphere) { m_BoundSphere = boundSphere; }
+
+	// 
+	void OnCollision(GameObject* other);
 
 	// Update net force
 	void UpdateNetForce();

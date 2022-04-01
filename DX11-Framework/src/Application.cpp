@@ -257,6 +257,9 @@ void Application::InitCameras()
 
 void Application::InitObjects()
 {
+    // init the physics system
+    m_PhysicsSystem = PhysicsSystem::GetInstance();
+
     // setup mesh data and material
     MeshData meshData = OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice);
 
@@ -273,10 +276,15 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 50.0f);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 1.0f);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
+
+    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 1.0f);
+    m_Mars->GetTransform()->SetPosition(5.0f, 0.0f, 0.0f);
+    m_Mars->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
+    m_Mars->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
         XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
@@ -330,6 +338,8 @@ HRESULT Application::InitTextures()
 
     if (FAILED(hr))
         return hr;
+
+    m_Mars->GetAppearance()->SetTextureRV(m_pTextureMarsRV);
 
     return S_OK;
 }
@@ -544,6 +554,7 @@ void Application::Update()
     HandleInput();
     GetCursorPos(m_MousePos);
 
+
     // Reset the mouse if it goes out of bounds
     // 
     if (!m_GameTimer->GetPauseState())
@@ -569,6 +580,7 @@ void Application::Update()
     // Moon for Earth
     //m_MainPlayerPawn->Update();
     m_Sun->Update(dt);
+    m_Mars->Update(dt);
 }
 
 void Application::Draw()
@@ -614,6 +626,7 @@ void Application::Draw()
     // Render Object
     //
     m_Sun->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
+    m_Mars->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
 
     //
     // Present our back buffer to our front buffer
@@ -655,6 +668,9 @@ void Application::HandleInput()
                     break;
                 case '3':
                     m_MainCamera = m_TopDownCamera;
+                    break;
+                case '4':
+                    CORE_INFO(m_PhysicsSystem->CollisionCheck(m_Mars.get(), m_Sun.get()));
                     break;
                 case VK_ESCAPE:
                     if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
