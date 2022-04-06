@@ -276,12 +276,12 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 1.0f);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 1.5f);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 
-    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 1.0f);
+    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 2.0f);
     m_Mars->GetTransform()->SetPosition(5.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
@@ -670,7 +670,13 @@ void Application::HandleInput()
                     m_MainCamera = m_TopDownCamera;
                     break;
                 case '4':
-                    CORE_INFO(m_PhysicsSystem->CollisionCheck(m_Mars.get(), m_Sun.get()));
+                    if (KeyboardClass::IsKeyPressed('4'))
+                    {
+                        if (m_PhysicsSystem->CollCheckSphereSphere(m_Sun.get(), m_Mars.get()))
+                        {
+                            m_PhysicsSystem->CollResSphereSphere(m_Sun.get(), m_Mars.get());
+                        }
+                    }
                     break;
                 case VK_ESCAPE:
                     if (KeyboardClass::IsKeyPressed(VK_ESCAPE))

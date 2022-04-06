@@ -49,6 +49,20 @@ struct Vector3
 		return Vector3(x / magnitude, y / magnitude, z / magnitude);
 	}
 
+	void Normalize()
+	{
+		assert(magnitude != 0);
+
+		this->x = x / magnitude;
+		this->y = y / magnitude;
+		this->z = z / magnitude;
+	}
+
+	float Dot(Vector3 other)
+	{
+		return this->x * other.x + this->y * other.y + this->z * other.z;
+	}
+
 	float DistanceSquared(Vector3 other)
 	{
 		return std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2);

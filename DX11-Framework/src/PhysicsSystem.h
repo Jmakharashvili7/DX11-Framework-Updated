@@ -7,7 +7,8 @@ private:
 	static PhysicsSystem* m_instance;
 public:
 	static PhysicsSystem* GetInstance();
-	bool CollisionCheck(GameObject* lhs, GameObject* rhs);
+	bool CollCheckSphereSphere(GameObject* lhs, GameObject* rhs);
+	void CollResSphereSphere(GameObject* lhs, GameObject* rhs);
 private:
 	PhysicsSystem();
 	~PhysicsSystem();

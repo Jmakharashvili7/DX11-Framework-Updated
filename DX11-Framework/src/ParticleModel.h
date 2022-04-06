@@ -4,7 +4,7 @@
 class ParticleModel
 {
 private:
-	float m_Acceleration, m_Mass;
+	float m_Acceleration, m_Mass, m_Restitution = 1.0f;
 	Vector3 m_Velocity, m_MaxVelocity, m_NetForce;
 	Transform* m_transform;
 	GameObject* m_parent;
@@ -34,7 +34,11 @@ public:
 	inline BoundingSphere* GetBoundSphere() const { return m_BoundSphere; }
 	inline void SetBoundSphere(BoundingSphere* boundSphere) { m_BoundSphere = boundSphere; }
 
-	// 
+	// Get and set coefficient of restitution
+	inline float GetRestitution() { return m_Restitution; }
+	inline void SetRestitution(float restitution) { m_Restitution = restitution; }
+
+	// Respond to collision
 	void OnCollision(GameObject* other);
 
 	// Update net force
