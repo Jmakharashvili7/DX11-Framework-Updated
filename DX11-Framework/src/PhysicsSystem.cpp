@@ -5,7 +5,7 @@
 
 PhysicsSystem* PhysicsSystem::m_instance;
 
-PhysicsSystem::PhysicsSystem() 
+PhysicsSystem::PhysicsSystem() : m_gravity(0.0f, -2.8f, 0.0f), m_gravityEnabled(false)
 {
     m_instance = this;
 }
@@ -29,7 +29,7 @@ bool PhysicsSystem::CollCheckSphereSphere(GameObject* lhs, GameObject* rhs)
     lhsBound = lhs->GetParticleModel()->GetBoundSphere();
     rhsBound = rhs->GetParticleModel()->GetBoundSphere();
 
-    float radSum = lhsBound->radius + rhsBound->radius;
+    float radSum = lhsBound->Diameter + rhsBound->Diameter;
     float distance = lhsBound->center.Distance(rhsBound->center);
 
     return radSum > distance;
@@ -68,4 +68,18 @@ void PhysicsSystem::CollResSphereSphere(GameObject* lhs, GameObject* rhs)
 
     lhs->GetParticleModel()->SetVelocity(totalVelocity1);
     rhs->GetParticleModel()->SetVelocity(totalVelocity2);
+}
+
+void PhysicsSystem::ApplyGravity(std::vector<GameObject*> gameObjects, float deltaTime)
+{
+    if (m_gravityEnabled)
+    {
+        for (GameObject* obj : gameObjects)
+        {
+            if (obj != nullptr)
+            {
+                obj->GetParticleModel()->ApplyForce(m_gravity * deltaTime);
+            }
+        }
+    }
 }

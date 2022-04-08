@@ -1,11 +1,13 @@
 #pragma once
 #include "GameObject.h"
 
+#define TERMINAL_VECOCITY -15.0f
+
 class ParticleModel
 {
 private:
 	float m_Acceleration, m_Mass, m_Restitution = 1.0f;
-	Vector3 m_Velocity, m_MaxVelocity, m_NetForce;
+	Vector3 m_Velocity, m_MaxVelocity, m_NetForce, m_ExternalForce, m_Gravity, m_Friction;
 	Transform* m_transform;
 	GameObject* m_parent;
 	BoundingSphere* m_BoundSphere;
@@ -16,7 +18,8 @@ public:
 	void Update(const float dt);
 	void HandleInput(const float dt, const unsigned int key);
 
-	void MoveConstAcceleration(const float dt);
+	void ApplyForce(Vector3 force);
+	void ApplyGravity(Vector3 gravity);
 
 	// Get and set for velocity 
 	inline Vector3 GetVelocity() const { return m_Velocity; }
@@ -38,10 +41,18 @@ public:
 	inline float GetRestitution() { return m_Restitution; }
 	inline void SetRestitution(float restitution) { m_Restitution = restitution; }
 
-	// Respond to collision
-	void OnCollision(GameObject* other);
 
+private:
 	// Update net force
 	void UpdateNetForce();
+
+	// Calculate and apply friction
+	void ApplyFriction();
+
+	// Move object at a constant acceleration
+	void MoveConstAcceleration(const float dt);
+
+	// Respond to collision
+	void OnCollision(GameObject* other);
 };
 

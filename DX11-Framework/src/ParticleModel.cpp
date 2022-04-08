@@ -9,12 +9,14 @@
 ParticleModel::ParticleModel(GameObject* parent, float mass) :
 	m_Velocity(0.0f, 0.0f, 0.0f),
 	m_parent(parent),
-	m_Acceleration(0.5f),
+	m_Acceleration(1.0f),
 	m_NetForce(0.0f, 0.0f, 0.0f),
 	m_Mass(mass),
 	m_transform(nullptr),
-	m_MaxVelocity(1.5f, 1.5f, 1.5f),
-	m_BoundSphere(new BoundingSphere())
+	m_MaxVelocity(8.5f, 8.5f, 8.5f),
+	m_BoundSphere(new BoundingSphere()),
+	m_Gravity(0.0f, 0.0f, 0.0f),
+	m_Friction(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -29,10 +31,10 @@ void ParticleModel::Update(const float dt)
 	UpdateNetForce();
 
 	Vector3* position = m_parent->GetTransform()->GetPosition();
-	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce / m_Mass) * dt));
+	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce / m_Mass) *dt));
 
 	m_BoundSphere->center = *position;
-	m_BoundSphere->radius = 1.0f;
+	m_BoundSphere->Diameter = m_parent->GetTransform()->GetScale()->x;
 }
 
 void ParticleModel::HandleInput(const float dt, const unsigned int key)
@@ -102,7 +104,36 @@ void ParticleModel::MoveConstAcceleration(const float dt)
 	m_parent->GetTransform()->SetPosition(new Vector3(*position + m_Velocity * dt));
 }
 
+void ParticleModel::ApplyForce(Vector3 force)
+{
+	m_ExternalForce += force;
+}
+
+void ParticleModel::ApplyGravity(Vector3 gravity)
+{
+	if (m_Gravity.y <= TERMINAL_VECOCITY)
+		m_Gravity += gravity;
+	else
+		m_Gravity.y = TERMINAL_VECOCITY;
+}
+
 void ParticleModel::UpdateNetForce()
 {
-	m_NetForce += m_Velocity;
+	m_NetForce += m_Velocity + m_ExternalForce + m_Friction;
+}
+
+void ParticleModel::ApplyFriction()
+{
+	m_Friction = { 0.5f, 0.5f, 0.0f };
+	Vector3 temp = { m_Velocity.x, m_Velocity.y, 0.0f };
+
+	if (m_Friction.magnitude > temp.magnitude)
+	{
+		m_Velocity -= m_Friction;
+	}
+	else
+	{
+		m_Friction = temp;
+		m_Velocity -= m_Friction;
+	}
 }

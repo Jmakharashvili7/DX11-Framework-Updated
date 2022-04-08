@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "DDSTextureLoader.h"
 #include "resource.h"	
@@ -25,6 +26,7 @@
 #include "Appearance.h"
 #include "ParticleModel.h"
 #include "PhysicsSystem.h"
+#include "ParticleModel.h"
 
 using namespace DirectX;
 
@@ -70,6 +72,7 @@ private:
 	FP_Camera                 *m_FPCamera;
 
 	// OBJ Game Objects
+	std::vector<GameObject*>  m_GameObjects;
 	unique_ptr<GameObject>	  m_Sun, m_Mars, m_Earth, m_Moon;
 	PlayerPawn                *m_MainPlayerPawn;
 

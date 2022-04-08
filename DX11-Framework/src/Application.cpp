@@ -202,7 +202,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 
     //Initialize the logger
     Log::Init();
-    CORE_INFO("Initialized loggers!");
+    LOG_INFO("Initialized loggers!");
 
     KeyboardClass::Init();
 
@@ -276,15 +276,17 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 1.5f);
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 10.5f);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
+    m_GameObjects.push_back(m_Sun.get());
 
-    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 2.0f);
+    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 10.0f);
     m_Mars->GetTransform()->SetPosition(5.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
+    m_GameObjects.push_back(m_Mars.get());
 
     m_MainPlayerPawn = new PlayerPawn(OBJLoader::Load("DX11-Framework/3D_Models/Blender/MoonTest.obj", m_pd3dDevice),
         XMFLOAT3(0.0f, 1.0f, -2.0f), m_WindowHeight, m_WindowWidth, 0.1f, 100.0f);
@@ -554,6 +556,7 @@ void Application::Update()
     HandleInput();
     GetCursorPos(m_MousePos);
 
+    m_PhysicsSystem->ApplyGravity(m_GameObjects, dt);
 
     // Reset the mouse if it goes out of bounds
     // 
@@ -668,6 +671,13 @@ void Application::HandleInput()
                     break;
                 case '3':
                     m_MainCamera = m_TopDownCamera;
+                    break;
+                case 'G':
+                    if (KeyboardClass::IsKeyPressed('G'))
+                    {
+                        m_PhysicsSystem->EnableGravity();
+                        LOG_INFO(m_PhysicsSystem->GetGravityState());
+                    }
                     break;
                 case '4':
                     if (KeyboardClass::IsKeyPressed('4'))

@@ -18,21 +18,21 @@ public:
 };
 
 #ifdef _DEBUG
-	#define CORE_CRITICAL(...) ::Log::GetCoreLogger()->critical(__VA_ARGS__) 
-	#define CORE_ERROR(...) ::Log::GetCoreLogger()->error(__VA_ARGS__)
-	#define CORE_WARNING(...) ::Log::GetCoreLogger()->warn(__VA_ARGS__)
-	#define CORE_INFO(...) ::Log::GetCoreLogger()->info(__VA_ARGS__)
+	#define LOG_CRITICAL(...) ::Log::GetCoreLogger()->critical(__VA_ARGS__) 
+	#define LOG_ERROR(...) ::Log::GetCoreLogger()->error(__VA_ARGS__)
+	#define LOG_WARNING(...) ::Log::GetCoreLogger()->warn(__VA_ARGS__)
+	#define LOG_INFO(...) ::Log::GetCoreLogger()->info(__VA_ARGS__)
 
-	
+	// optional logger with another name in case needed
 	#define APP_CRITICAL(...) ::Log::GetClientLogger()->critical(__VA_ARGS__)
 	#define APP_ERROR(...) ::Log::GetClientLogger()->error(__VA_ARGS__)
 	#define APP_WARNING(...) ::Log::GetClientLogger()->warn(__VA_ARGS__)
 	#define APP_INFO(...) ::Log::GetClientLogger()->info(__VA_ARGS__)
 #else
-	#define	CORE_CRITICAL(...)
-	#define CORE_ERROR(...)
-	#define CORE_WARNING(...)
-	#define CORE_INFO(...)
+	#define	LOG_CRITICAL(...)
+	#define LOG_ERROR(...)
+	#define LOG_WARNING(...)
+	#define LOG_INFO(...)
 
 	#define APP_CRITICAL(...)
 	#define APP_ERROR(...)
