@@ -37,7 +37,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -432,6 +432,7 @@
     <ClInclude Include="DX11-Framework\src\MouseEvent.h" />
     <ClInclude Include="DX11-Framework\src\OBJLoader.h" />
     <ClInclude Include="DX11-Framework\src\PlayerPawn.h" />
+    <ClInclude Include="DX11-Framework\src\Quaternion.h" />
     <ClInclude Include="DX11-Framework\src\resource.h" />
     <ClInclude Include="DX11-Framework\src\structs.h" />
     <ClInclude Include="DX11-Framework\src\Log.h" />

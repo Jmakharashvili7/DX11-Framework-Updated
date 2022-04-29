@@ -27,6 +27,7 @@
 #include "ParticleModel.h"
 #include "PhysicsSystem.h"
 #include "ParticleModel.h"
+#include "Quaternion.h"
 
 using namespace DirectX;
 
