@@ -32,3 +32,6 @@
 *.app
 *.dds
 *.ipch
+*.pdb
+bin/intermediates/Win32Debug/vc142.pdb
+bin/intermediates/Win32Debug/vc142.idb

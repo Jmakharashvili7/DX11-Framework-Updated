@@ -30,8 +30,11 @@ void ParticleModel::Update(const float dt)
 	m_NetForce.Zero();
 	UpdateNetForce();
 
+	// should always be after update net force
+	UpdateAccel();
+
 	Vector3* position = m_parent->GetTransform()->GetPosition();
-	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce / m_Mass) *dt));
+	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce) * dt));
 
 	m_BoundSphere->center = *position;
 	m_BoundSphere->Diameter = m_parent->GetTransform()->GetScale()->x;
@@ -122,18 +125,7 @@ void ParticleModel::UpdateNetForce()
 	m_NetForce += m_Velocity + m_ExternalForce + m_Friction;
 }
 
-void ParticleModel::ApplyFriction()
+void ParticleModel::UpdateAccel()
 {
-	m_Friction = { 0.5f, 0.5f, 0.0f };
-	Vector3 temp = { m_Velocity.x, m_Velocity.y, 0.0f };
-
-	if (m_Friction.magnitude > temp.magnitude)
-	{
-		m_Velocity -= m_Friction;
-	}
-	else
-	{
-		m_Friction = temp;
-		m_Velocity -= m_Friction;
-	}
+	m_Acceleration = m_NetForce.x / m_Mass;
 }

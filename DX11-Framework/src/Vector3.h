@@ -25,6 +25,23 @@ struct Vector3
 		magnitude = std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
 	}
 
+	Vector3(XMVECTOR vector)
+	{
+		XMFLOAT3 temp;
+		XMStoreFloat3(&temp, vector);
+
+		x = temp.x;
+		y = temp.y;
+		z = temp.z;
+	}
+
+	Vector3(XMFLOAT3 vector)
+	{
+		x = vector.x;
+		y = vector.y;
+		z = vector.z;
+	}
+
 	XMFLOAT3 GetXMFLOAT3()
 	{
 		return XMFLOAT3(x, y, z);

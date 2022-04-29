@@ -688,6 +688,12 @@ void Application::HandleInput()
                         }
                     }
                     break;
+                case '5':
+                {
+                    if (KeyboardClass::IsKeyPressed('5'))
+                    {
+                    }
+                }
                 case VK_ESCAPE:
                     if (KeyboardClass::IsKeyPressed(VK_ESCAPE))
                     {

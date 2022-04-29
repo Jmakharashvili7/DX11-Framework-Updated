@@ -6,8 +6,8 @@
 class ParticleModel
 {
 private:
-	float m_Acceleration, m_Mass, m_Restitution = 1.0f;
-	Vector3 m_Velocity, m_MaxVelocity, m_NetForce, m_ExternalForce, m_Gravity, m_Friction;
+	float m_Mass, m_Restitution = 1.0f;
+	Vector3 m_Velocity, m_MaxVelocity, m_NetForce, m_ExternalForce, m_Gravity, m_Friction, m_Acceleration;
 	Transform* m_transform;
 	GameObject* m_parent;
 	BoundingSphere* m_BoundSphere;
@@ -26,7 +26,7 @@ public:
 	inline void SetVelocity(Vector3 velocity) { m_Velocity = velocity; }
 
 	// Get and set for acceleration
-	inline float GetAcceleration() const { return m_Acceleration; }
+	inline Vector3 GetAcceleration() const { return m_Acceleration; }
 	inline void SetAcceleration(float acceleration) { m_Acceleration = acceleration; }
 
 	// Get and set for mass
@@ -46,8 +46,8 @@ private:
 	// Update net force
 	void UpdateNetForce();
 
-	// Calculate and apply friction
-	void ApplyFriction();
+	// Update Acceleration
+	void UpdateAccel();
 
 	// Move object at a constant acceleration
 	void MoveConstAcceleration(const float dt);
