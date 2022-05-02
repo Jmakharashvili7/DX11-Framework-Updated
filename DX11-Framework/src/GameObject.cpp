@@ -3,11 +3,12 @@
 #include "ParticleModel.h"
 #include "Appearance.h"
 
-GameObject::GameObject(string type, Geometry geometry, Material* material, float mass) :
+GameObject::GameObject(string type, Geometry geometry, Material* material, float mass, ObjectType objectType) :
 	m_Type(type),
 	m_ParticleModel(new ParticleModel(this, mass)),
 	m_Appearance(new Appearance(material, geometry)),
-	m_Transform(new Transform(nullptr, Vector3(0,0,0), Vector3(0,0,0), Vector3(1,1,1)))
+	m_Transform(new Transform(nullptr, Vector3(0,0,0), Vector3(0,0,0), Vector3(1,1,1))),
+	m_ObjectType(objectType)
 {
 }
 

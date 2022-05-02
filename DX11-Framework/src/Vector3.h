@@ -7,7 +7,7 @@ using namespace DirectX;
 
 struct Vector3
 {
-	float x, y, z, magnitude;
+	float x, y, z;
 
 	Vector3()
 	{
@@ -21,8 +21,6 @@ struct Vector3
 		this->x = x;
 		this->y = y;
 		this->z = z;
-
-		magnitude = std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
 	}
 
 	Vector3(XMVECTOR vector)
@@ -40,6 +38,17 @@ struct Vector3
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
+	}
+
+	float GetMagnitude()
+	{
+		return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
+	}
+
+	Vector3 GetUnitVec()
+	{
+		float mag = GetMagnitude();
+		return Vector3(x / mag, y / mag, z / mag);
 	}
 
 	XMFLOAT3 GetXMFLOAT3()
@@ -195,6 +204,7 @@ struct Vector3
 };
 
 Vector3 operator*(const Vector3& lhs, const float& rhs);
+Vector3 operator*(const float lhs, const Vector3& rhs);
 Vector3 operator+(const Vector3& lhs, const float& rhs);
 Vector3 operator-(const Vector3& lhs, const float& rhs);
 Vector3 operator/(const Vector3& lhs, const float& rhs);

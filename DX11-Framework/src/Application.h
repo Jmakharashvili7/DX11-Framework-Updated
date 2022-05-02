@@ -53,7 +53,7 @@ private:
 	BaseShader               *m_pTemplateShader;
 
 	// Texture Resource View
-	ID3D11ShaderResourceView *m_pTextureSunRV,*m_pTextureMoonRV, *m_pTextureEarthRV, *m_pTextureMarsRV, *m_pTextureNrms;
+	ID3D11ShaderResourceView *m_pTextureSunRV,*m_pTextureMoonRV, *m_pTextureEarthRV, *m_pTextureMarsRV, *m_pTextureNrms, *m_pTextureFloorRV;
 	ID3D11SamplerState       *m_pSamplerLinear = nullptr;
 
 	// Other texture Rvs
@@ -72,9 +72,13 @@ private:
 	Camera                    *m_MainCamera, *m_StaticCamera, *m_TopDownCamera;
 	FP_Camera                 *m_FPCamera;
 
+	// Floor plane data
+	ID3D11Buffer* m_PlaneIndexBuffer;
+	ID3D11Buffer* m_PlaneVertexBuffer;
+
 	// OBJ Game Objects
 	std::vector<GameObject*>  m_GameObjects;
-	unique_ptr<GameObject>	  m_Sun, m_Mars, m_Earth, m_Moon;
+	unique_ptr<GameObject>	  m_Sun, m_Mars, m_Earth, m_Moon, m_Floor;
 	PlayerPawn                *m_MainPlayerPawn;
 
 	// variables for game state
@@ -91,6 +95,8 @@ private:
 	HRESULT InitTextures();
 	HRESULT InitShadersAndInputLayout();
 	void InitCameras();
+	void InitVertexBuffers();
+	void InitIndexBuffers();
 	void InitObjects();
 
 	UINT m_WindowHeight;

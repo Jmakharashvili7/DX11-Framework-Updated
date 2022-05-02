@@ -5,7 +5,7 @@
 
 PhysicsSystem* PhysicsSystem::m_instance;
 
-PhysicsSystem::PhysicsSystem() : m_gravity(0.0f, -2.8f, 0.0f), m_gravityEnabled(false)
+PhysicsSystem::PhysicsSystem() : m_gravity(0.0f, -9.8f, 0.0f), m_gravityEnabled(false)
 {
     m_instance = this;
 }
@@ -78,7 +78,24 @@ void PhysicsSystem::ApplyGravity(std::vector<GameObject*> gameObjects, float del
         {
             if (obj != nullptr)
             {
-                obj->GetParticleModel()->ApplyForce(m_gravity * deltaTime);
+                Vector3* pos = obj->GetTransform()->GetPosition();
+
+                if (obj->GetObjectType() == ObjectType::DYNAMIC)
+                {
+                    if (pos->y < 0.0f)
+                    {
+                        pos->y = 0.0f;
+                        obj->GetTransform()->SetPosition(pos);
+                        obj->GetParticleModel()->SetGrounded(true);
+                    }
+                    else
+                    {
+                        if (obj->GetParticleModel()->GetGrounded() == false)
+                        {
+                            obj->GetParticleModel()->ApplyForce(m_gravity * deltaTime);
+                        }
+                    }
+                }
             }
         }
     }

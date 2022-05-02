@@ -9,6 +9,7 @@ private:
 	bool m_gravityEnabled;
 public:
 	static PhysicsSystem* GetInstance();
+
 	bool CollCheckSphereSphere(GameObject* lhs, GameObject* rhs);
 	void CollResSphereSphere(GameObject* lhs, GameObject* rhs);
 

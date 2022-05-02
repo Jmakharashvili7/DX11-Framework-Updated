@@ -255,6 +255,55 @@ void Application::InitCameras()
     XMStoreFloat3(&m_cb.EyePosW, m_MainCamera->GetPosition());
 }
 
+void Application::InitVertexBuffers()
+{
+    D3D11_BUFFER_DESC bd;
+    ZeroMemory(&bd, sizeof(bd));
+    D3D11_SUBRESOURCE_DATA InitData;
+    ZeroMemory(&InitData, sizeof(InitData));
+
+    // Create vertex buffer
+    SimpleVertex planeVertices[] =
+    {
+        { XMFLOAT3(-1.0f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(0.0f, 5.0f) },
+        { XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(5.0f, 5.0f) },
+        { XMFLOAT3(1.0f, 1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(5.0f, 0.0f) },
+        { XMFLOAT3(-1.0f, 1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
+    };
+
+    ZeroMemory(&bd, sizeof(bd));
+    bd.Usage = D3D11_USAGE_DEFAULT;
+    bd.ByteWidth = sizeof(SimpleVertex) * 4;
+    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    bd.CPUAccessFlags = 0;
+
+    m_pd3dDevice->CreateBuffer(&bd, &InitData, &m_PlaneVertexBuffer);
+}
+
+void Application::InitIndexBuffers()
+{
+    D3D11_BUFFER_DESC bd;
+    ZeroMemory(&bd, sizeof(bd));
+    D3D11_SUBRESOURCE_DATA InitData;
+    ZeroMemory(&InitData, sizeof(InitData));
+
+    WORD planeIndices[] =
+    {
+        0, 3, 1,
+        3, 2, 1
+    };
+
+    ZeroMemory(&bd, sizeof(bd));
+    bd.Usage = D3D11_USAGE_DEFAULT;
+    bd.ByteWidth = sizeof(WORD) * 6;
+    bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+    bd.CPUAccessFlags = 0;
+
+    ZeroMemory(&InitData, sizeof(InitData));
+    InitData.pSysMem = planeIndices;
+    m_pd3dDevice->CreateBuffer(&bd, &InitData, &m_PlaneIndexBuffer);
+}
+
 void Application::InitObjects()
 {
     // init the physics system
@@ -267,8 +316,18 @@ void Application::InitObjects()
     geometry.indexCount = meshData.IndexCount;
     geometry.indexBuffer = meshData.IndexBuffer;
     geometry.vertexBuffer = meshData.VertexBuffer;
-    geometry.vertexBufferOffset = meshData.VBOffset;
+    geometry.vertexBufferOffset = meshData.VBOffset; 
     geometry.vertexBufferStride = meshData.VBStride;
+
+    // setup plane geometry
+    MeshData floorMesh = OBJLoader::Load("DX11-Framework/3D_Models/Blender/Cube.obj", m_pd3dDevice);
+
+    Geometry floorGeometry;
+    floorGeometry.indexCount = floorMesh.IndexCount;
+    floorGeometry.indexBuffer = floorMesh.IndexBuffer;
+    floorGeometry.vertexBuffer = floorMesh.VertexBuffer;
+    floorGeometry.vertexBufferOffset = floorMesh.VBOffset;
+    floorGeometry.vertexBufferStride = floorMesh.VBStride;
 
     Material material;
     material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -276,13 +335,25 @@ void Application::InitObjects()
     material.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
     material.specularPower = 10.0f;
 
-    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 10.5f);
+    Material floorMaterial;
+    floorMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    floorMaterial.specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
+    floorMaterial.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+    floorMaterial.specularPower = 0.0f;
+
+    m_Floor = make_unique<GameObject>("Floor", floorGeometry, &floorMaterial, 1.0f, ObjectType::STATIC);
+    m_Floor->GetTransform()->SetPosition(0.0f, -1.1f, 0.0f);
+    m_Floor->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
+    m_Floor->GetTransform()->SetScale(10.0f, 0.1f, 10.0f);
+    m_GameObjects.push_back(m_Floor.get());
+
+    m_Sun = make_unique<GameObject>("TheSun", geometry, &material, 10.5f, ObjectType::DYNAMIC);
     m_Sun->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Sun->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
     m_GameObjects.push_back(m_Sun.get());
 
-    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 10.0f);
+    m_Mars = make_unique<GameObject>("Mars", geometry, &material, 10.0f, ObjectType::DYNAMIC);
     m_Mars->GetTransform()->SetPosition(5.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetRotation(0.0f, 0.0f, 0.0f);
     m_Mars->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
@@ -312,8 +383,8 @@ void Application::InitLights()
 
     // Specular light info
     m_cb.SpecularMaterial = { 0.3f, 0.3f, 0.3f, 1.0f };
-    m_cb.SpecularLight = { 1.0f, 1.0f, 1.0f, 1.0f };
-    m_cb.SpecularPower = 10.0f;
+    m_cb.SpecularLight = { 0.0f, 0.0f, 0.0f, 0.0f };
+    m_cb.SpecularPower = 1.0f;
 
 }
 
@@ -321,27 +392,19 @@ HRESULT Application::InitTextures()
 {
     HRESULT hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/SunTex.dds", nullptr, &m_pTextureSunRV);
 
-    if (FAILED(hr))
-        return hr;
-
     m_Sun->GetAppearance()->SetTextureRV(m_pTextureSunRV);
 
     hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/MoonTex.dds", nullptr, &m_pTextureMoonRV);
 
-    if (FAILED(hr))
-        return hr;
-
     hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/EarthTex.dds", nullptr, &m_pTextureEarthRV);
 
-    if (FAILED(hr))
-        return hr;
-
     hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/MarsTex.dds", nullptr, &m_pTextureMarsRV);
-
-    if (FAILED(hr))
-        return hr;
+    
+    hr = CreateDDSTextureFromFile(m_pd3dDevice, L"DX11-Framework/Textures/floor.dds", nullptr, &m_pTextureFloorRV);
 
     m_Mars->GetAppearance()->SetTextureRV(m_pTextureMarsRV);
+
+    m_Floor->GetAppearance()->SetTextureRV(m_pTextureFloorRV);
 
     return S_OK;
 }
@@ -487,12 +550,11 @@ HRESULT Application::InitDevice()
     vp.TopLeftY = 0;
     m_pImmediateContext->RSSetViewports(1, &vp);
 
+    InitIndexBuffers();
+    InitVertexBuffers();
     InitShadersAndInputLayout();
-
     InitObjects();
-
     InitLights();
-
     InitTextures();
 
     // Set primitive topology
@@ -558,6 +620,11 @@ void Application::Update()
 
     m_PhysicsSystem->ApplyGravity(m_GameObjects, dt);
 
+    if (m_PhysicsSystem->CollCheckSphereSphere(m_Sun.get(), m_Mars.get()))
+    {
+        m_PhysicsSystem->CollResSphereSphere(m_Sun.get(), m_Mars.get());
+    }
+
     // Reset the mouse if it goes out of bounds
     // 
     if (!m_GameTimer->GetPauseState())
@@ -580,10 +647,10 @@ void Application::Update()
 
     float t = m_GameTimer->GetGameTime() / 2.0f;
 
-    // Moon for Earth
-    //m_MainPlayerPawn->Update();
-    m_Sun->Update(dt);
-    m_Mars->Update(dt);
+    for (int i = 0; i < m_GameObjects.size(); i++)
+    {
+        m_GameObjects[i]->Update(dt);
+    }
 }
 
 void Application::Draw()
@@ -624,12 +691,11 @@ void Application::Draw()
     m_pImmediateContext->PSSetSamplers(0, 1, &m_pSamplerLinear);
     m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureSunRV);
     m_pImmediateContext->CSSetShaderResources(1, 1, &m_pTextureNrms);
-
-    //
-    // Render Object
-    //
-    m_Sun->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
-    m_Mars->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
+    
+    for (int i = 0; i < m_GameObjects.size(); i++)
+    {
+        m_GameObjects[i]->Draw(m_cb, m_pConstantBuffer, m_pImmediateContext);
+    }
 
     //
     // Present our back buffer to our front buffer
@@ -676,7 +742,6 @@ void Application::HandleInput()
                     if (KeyboardClass::IsKeyPressed('G'))
                     {
                         m_PhysicsSystem->EnableGravity();
-                        LOG_INFO(m_PhysicsSystem->GetGravityState());
                     }
                     break;
                 case '4':
@@ -692,6 +757,7 @@ void Application::HandleInput()
                 {
                     if (KeyboardClass::IsKeyPressed('5'))
                     {
+                        m_Mars->GetParticleModel()->ApplyForce(Vector3(-2.0f, 0.0f, 0.0f));
                     }
                 }
                 case VK_ESCAPE:

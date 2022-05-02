@@ -1,18 +1,19 @@
 #pragma once
 #include "GameObject.h"
 
-#define TERMINAL_VECOCITY -15.0f
+#define TERMINAL_VELOCITY -10.0f
 
 class ParticleModel
 {
 private:
-	float m_Mass, m_Restitution = 1.0f;
-	Vector3 m_Velocity, m_MaxVelocity, m_NetForce, m_ExternalForce, m_Gravity, m_Friction, m_Acceleration;
+	bool m_Grounded, m_Laminar, m_InFluid = false;
+	float m_Mass, m_Restitution = 1.0f, m_Speed, m_DragFactor = 0.47f;
+	Vector3 m_Velocity, m_MaxVelocity, m_NetForce, m_ExternalForce, m_Gravity, m_Friction, m_Acceleration, m_Drag;
 	Transform* m_transform;
 	GameObject* m_parent;
 	BoundingSphere* m_BoundSphere;
 public:
-	ParticleModel(GameObject* parent, float mass);
+	ParticleModel(GameObject* parent, float mass, bool grounded = true);
 	~ParticleModel();
 
 	void Update(const float dt);
@@ -27,7 +28,7 @@ public:
 
 	// Get and set for acceleration
 	inline Vector3 GetAcceleration() const { return m_Acceleration; }
-	inline void SetAcceleration(float acceleration) { m_Acceleration = acceleration; }
+	inline void SetAcceleration(Vector3 acceleration) { m_Acceleration = acceleration; }
 
 	// Get and set for mass
 	inline float GetMass() const { return m_Mass; }
@@ -41,6 +42,8 @@ public:
 	inline float GetRestitution() { return m_Restitution; }
 	inline void SetRestitution(float restitution) { m_Restitution = restitution; }
 
+	inline bool GetGrounded() { return m_Grounded; }
+	inline void SetGrounded(bool grounded) { m_Grounded = grounded; }
 
 private:
 	// Update net force
@@ -49,8 +52,18 @@ private:
 	// Update Acceleration
 	void UpdateAccel();
 
+	void UpdateState(const float dt);
+
+	// function for moving the object
+	void Move(const float dt);
+
 	// Move object at a constant acceleration
 	void MoveConstAcceleration(const float dt);
+
+	void MotionInFluid(const float dt);
+	void DragForce();
+	void DragLamForce();
+	void DragTurbFlow();
 
 	// Respond to collision
 	void OnCollision(GameObject* other);

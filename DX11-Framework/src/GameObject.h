@@ -12,6 +12,12 @@ class Appearance;
 using namespace DirectX;
 using namespace std;
 
+enum class ObjectType
+{
+	STATIC,
+	DYNAMIC
+};
+
 class GameObject
 {
 
@@ -20,9 +26,10 @@ protected:
 	Transform* m_Transform;
 	Appearance* m_Appearance;
 	ParticleModel* m_ParticleModel;
+	ObjectType m_ObjectType;
 public:
 	GameObject() {}
-	GameObject(string type, Geometry geometry, Material* material, float mass);
+	GameObject(string type, Geometry geometry, Material* material, float mass, ObjectType objectType);
 	~GameObject();
 
 	// returns a string of object type
@@ -37,6 +44,9 @@ public:
 	// Update function which sets the world matrix and takes in deltaTime
 	void Update(const float dt);
 	void HandleInput(const float dt, const unsigned int key);
+	
+	ObjectType GetObjectType() { return m_ObjectType; }
+	void SetObjectType(ObjectType objectType) { m_ObjectType = objectType; }
 
 	// Function for drawing the object
 	void Draw(ConstantBuffer& buffer, ID3D11Buffer* constBuffer, ID3D11DeviceContext* immediateContext);

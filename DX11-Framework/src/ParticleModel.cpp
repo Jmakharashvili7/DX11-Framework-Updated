@@ -6,39 +6,26 @@
 #include "Log.h"
 #include "KeyboardClass.h"
 
-ParticleModel::ParticleModel(GameObject* parent, float mass) :
+ParticleModel::ParticleModel(GameObject* parent, float mass, bool grounded) :
 	m_Velocity(0.0f, 0.0f, 0.0f),
 	m_parent(parent),
-	m_Acceleration(1.0f),
+	m_Speed(1.0f),
 	m_NetForce(0.0f, 0.0f, 0.0f),
 	m_Mass(mass),
 	m_transform(nullptr),
 	m_MaxVelocity(8.5f, 8.5f, 8.5f),
 	m_BoundSphere(new BoundingSphere()),
 	m_Gravity(0.0f, 0.0f, 0.0f),
-	m_Friction(0.0f, 0.0f, 0.0f)
+	m_Friction(0.0f, 0.0f, 0.0f),
+	m_Grounded(grounded)
 {
+	m_BoundSphere->Diameter = m_parent->GetTransform()->GetScale()->x;
 }
 
 ParticleModel::~ParticleModel()
 {
 }
 
-void ParticleModel::Update(const float dt)
-{
-	// Reset netforce
-	m_NetForce.Zero();
-	UpdateNetForce();
-
-	// should always be after update net force
-	UpdateAccel();
-
-	Vector3* position = m_parent->GetTransform()->GetPosition();
-	m_parent->GetTransform()->SetPosition(new Vector3(*position + (m_NetForce) * dt));
-
-	m_BoundSphere->center = *position;
-	m_BoundSphere->Diameter = m_parent->GetTransform()->GetScale()->x;
-}
 
 void ParticleModel::HandleInput(const float dt, const unsigned int key)
 {
@@ -49,7 +36,7 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.z < m_MaxVelocity.z)
 			{
-				m_Velocity.z += m_Acceleration;
+				m_Velocity.z += m_Speed;
 			}
 		}
 		break;
@@ -58,7 +45,7 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.z > (m_MaxVelocity.z * -1))
 			{
-				m_Velocity.z -= m_Acceleration;
+				m_Velocity.z -= m_Speed;
 			}
 		}
 		break;
@@ -67,7 +54,7 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.x < m_MaxVelocity.x)
 			{
-				m_Velocity.x += m_Acceleration;
+				m_Velocity.x += m_Speed;
 			}
 		}
 		break;
@@ -76,7 +63,7 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.x > (m_MaxVelocity.x * -1))
 			{
-				m_Velocity.x -= m_Acceleration;
+				m_Velocity.x -= m_Speed;
 			}
 		}
 		break;
@@ -85,7 +72,8 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.y < m_MaxVelocity.y)
 			{
-				m_Velocity.y += m_Acceleration;
+				m_Velocity.y += m_Speed;
+				m_Grounded = false;
 			}
 		}
 		break;
@@ -94,10 +82,29 @@ void ParticleModel::HandleInput(const float dt, const unsigned int key)
 		{
 			if (m_Velocity.y > (m_MaxVelocity.y * -1))
 			{
-				m_Velocity.y -= m_Acceleration;
+				m_Velocity.y -= m_Speed;
 			}
 		}
 		break;
+	}
+}
+
+void ParticleModel::Update(const float dt)
+{
+	if (!m_InFluid)
+	{
+		UpdateState(dt);
+
+		if (m_Grounded)
+		{
+			m_NetForce.y = 0.0f;
+		}
+
+		Move(dt);
+	}
+	else
+	{
+		MotionInFluid(dt);
 	}
 }
 
@@ -107,25 +114,75 @@ void ParticleModel::MoveConstAcceleration(const float dt)
 	m_parent->GetTransform()->SetPosition(new Vector3(*position + m_Velocity * dt));
 }
 
-void ParticleModel::ApplyForce(Vector3 force)
+void ParticleModel::MotionInFluid(const float dt)
 {
-	m_ExternalForce += force;
+	DragForce();
+	UpdateState(dt);
+	Move(dt);
 }
 
-void ParticleModel::ApplyGravity(Vector3 gravity)
+void ParticleModel::DragForce()
 {
-	if (m_Gravity.y <= TERMINAL_VECOCITY)
-		m_Gravity += gravity;
+	if (m_Laminar)
+	{
+		DragLamForce();
+	}
 	else
-		m_Gravity.y = TERMINAL_VECOCITY;
+	{
+		DragTurbFlow();
+	}
+}
+
+void ParticleModel::DragLamForce()
+{
+	m_Drag = -m_DragFactor * m_Velocity;
+}
+
+void ParticleModel::DragTurbFlow()
+{
+	float mag = m_Velocity.GetMagnitude();
+	Vector3 unit = m_Velocity.GetUnitVec();
+
+	float dragMag = m_DragFactor * mag * mag;
+
+	m_Drag = dragMag * unit;
+}
+
+void ParticleModel::ApplyForce(Vector3 force)
+{
+	m_Velocity += force;
 }
 
 void ParticleModel::UpdateNetForce()
 {
-	m_NetForce += m_Velocity + m_ExternalForce + m_Friction;
+	if (!m_InFluid)
+	{
+		m_NetForce += m_ExternalForce;
+	}
+	else
+	{
+		m_NetForce += m_Drag;
+	}
 }
 
 void ParticleModel::UpdateAccel()
 {
-	m_Acceleration = m_NetForce.x / m_Mass;
+	m_Acceleration = m_NetForce / m_Mass;
+}
+
+void ParticleModel::UpdateState(const float dt)
+{
+	m_NetForce.Zero();
+	UpdateNetForce();
+	UpdateAccel();
+}
+
+void ParticleModel::Move(const float dt)
+{
+	Vector3* position = m_parent->GetTransform()->GetPosition();
+	m_parent->GetTransform()->SetPosition(new Vector3(*position + m_Velocity * dt + 0.5f * m_Acceleration * dt * dt));
+
+	m_Velocity += m_Acceleration * dt;
+
+	m_BoundSphere->center = *position;	
 }
